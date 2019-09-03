@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items {
-	class SaddleHarnessItem : ModItem, IAbilityAccessoryItem {
+	class MountReinItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -21,8 +21,8 @@ namespace LockedAbilities.Items {
 		}
 
 		public override void SetDefaults() {
-			this.item.width = SaddleHarnessItem.Width;
-			this.item.height = SaddleHarnessItem.Height;
+			this.item.width = MountReinItem.Width;
+			this.item.height = MountReinItem.Height;
 			this.item.maxStack = 1;
 			this.item.value = Item.buyPrice( 0, 50, 0, 0 );
 			this.item.rare = 6;

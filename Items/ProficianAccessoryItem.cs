@@ -34,10 +34,7 @@ namespace LockedAbilities.Items {
 		////////////////
 
 		public bool TestItemDisabled( Player player, int slot, Item item ) {
-			if( slot < PlayerItemHelpers.VanillaAccessorySlotFirst ) {
-				return false;
-			}
-			return slot >= this.GetMaxAccessorySlot( player ).Value;
+			return false;
 		}
 
 		public bool TestItemEnabled( Player player, int slot, Item item ) {

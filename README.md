@@ -1,6 +1,6 @@
 # Locked Abilities
 
-Locks many primary player abilities, particularly those enabled by accessories... including accessory slots (all but 1)! Abilities may be (ironically) unlocked with accessories.
+Locks many primary player abilities, particularly those enabled by accessories... including total accessory slots (all but 1)! Abilities may be unlocked with special accessories.
 
 Locked abilities (at start):
 - Grappling
