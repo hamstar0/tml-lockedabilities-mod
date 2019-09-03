@@ -42,7 +42,7 @@ namespace LockedAbilities.Items {
 			return false;
 		}
 
-		public bool IsMiscItemAnAbility( Player player, Item item ) {
+		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
 			if( item.mountType >= 0 ) {
 				return true;
 			}

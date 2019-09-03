@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public override void PostDrawInterface( SpriteBatch sb ) {
-			if( Main.playerInventory ) {
+			if( Main.playerInventory && Main.EquipPage == 0 ) {	//== 2 is misc page
 				this.DrawAccessoryOverlays( sb );
 			}
 		}

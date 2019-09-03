@@ -36,15 +36,15 @@ namespace LockedAbilities {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type abilityItemType, IAbilityAccessoryItem abilityItemTemplate) in mymod.AbilityItemTemplates ) {
-				if( equippedAbilityItemTypes.Contains( abilityItemType ) ) {
+			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemTemplates ) {
+				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
 					continue;
 				}
 
-				ModItem abilityModItem = (ModItem)abilityItemTemplate;
+				ModItem missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
 
-				if( !abilityItemTemplate.IsEquipItemAnAbility( this.player, testItem) ) {
-					alert = "Need " + abilityModItem.item.HoverName + " to equip.";
+				if( missingAbilityItemTemplate.IsEquipItemAnAbility( this.player, testItem) ) {
+					alert = "Need " + missingAbilityModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}

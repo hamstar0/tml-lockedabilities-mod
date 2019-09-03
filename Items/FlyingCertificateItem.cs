@@ -55,7 +55,7 @@ namespace LockedAbilities.Items {
 			return false;
 		}
 
-		public bool IsMiscItemAnAbility( Player player, Item item ) {
+		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
 			return false;
 		}
 

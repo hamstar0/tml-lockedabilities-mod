@@ -22,15 +22,25 @@ namespace LockedAbilities {
 					continue;
 				}
 
-				if( !this.TestArmorAgainstMissingAbilities( abilityItemTypes, slot, out alert) ) {
+				if( !this.TestArmorAgainstMissingAbilities( abilityItemTypes, slot, out alert ) ) {
 					Main.NewText( alert, Color.Yellow );
 					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
 					continue;
 				}
 			}
 
+			this.TestArmorSlotCapacity();
+		}
+
+		////
+
+		private void TestArmorSlotCapacity() {
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
+					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int first = PlayerItemHelpers.VanillaAccessorySlotFirst + this.HighestAllowedAccessorySlot;
+
 			// Test max accessory slots
-			for( int slot = this.HighestAllowedAccessorySlot; slot < maxAccSlot; slot++ ) {
+			for( int slot = first; slot < maxAccSlot; slot++ ) {
 				Item item = this.player.armor[slot];
 				if( item == null || item.IsAir ) {
 					continue;
@@ -49,16 +59,16 @@ namespace LockedAbilities {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type abilityItemType, IAbilityAccessoryItem abilityItemTemplate) in mymod.AbilityItemTemplates ) {
-				if( equippedAbilityItemTypes.Contains( abilityItemType ) ) {
+			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemTemplates ) {
+				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
 					continue;
 				}
 
-				ModItem abilityModItem = (ModItem)abilityItemTemplate;
+				ModItem missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
 				Item testItem = this.player.armor[slot];
 
-				if( !abilityItemTemplate.IsArmorItemAnAbility( this.player, slot, testItem) ) {
-					alert = "Need " + abilityModItem.item.HoverName + " to equip.";
+				if( missingAbilityItemTemplate.IsArmorItemAnAbility( this.player, slot, testItem) ) {
+					alert = "Need " + missingAbilityModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}
