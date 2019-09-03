@@ -16,7 +16,7 @@ namespace LockedAbilities {
 
 		public LockedAbilitiesConfig Config => this.GetConfig<LockedAbilitiesConfig>();
 
-		private IDictionary<Type, IAbilityAccessoryItem> _Abilities = new Dictionary<Type, IAbilityAccessoryItem>();
+		private IDictionary<Type, IAbilityAccessoryItem> _AbilityItemTemplates = new Dictionary<Type, IAbilityAccessoryItem>();
 		public IReadOnlyDictionary<Type, IAbilityAccessoryItem> AbilityItemTemplates { get; }
 
 		public Texture2D DisabledItemTex { get; private set; }
@@ -26,7 +26,7 @@ namespace LockedAbilities {
 
 		public LockedAbilitiesMod() {
 			LockedAbilitiesMod.Instance = this;
-			this.AbilityItemTemplates = new ReadOnlyDictionary<Type, IAbilityAccessoryItem>( this._Abilities );
+			this.AbilityItemTemplates = new ReadOnlyDictionary<Type, IAbilityAccessoryItem>( this._AbilityItemTemplates );
 		}
 
 		////////////////
@@ -45,7 +45,7 @@ namespace LockedAbilities {
 		////////////////
 
 		public void AddAbility( IAbilityAccessoryItem abilityTemplateItem ) {
-			this._Abilities[ abilityTemplateItem.GetType() ] = abilityTemplateItem;
+			this._AbilityItemTemplates[ abilityTemplateItem.GetType() ] = abilityTemplateItem;
 		}
 	}
 }

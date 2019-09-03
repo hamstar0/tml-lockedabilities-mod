@@ -1,10 +1,9 @@
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.DotNET.Extensions;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Helpers.Players;
 
 
 namespace LockedAbilities {
@@ -24,7 +23,7 @@ namespace LockedAbilities {
 			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots + firstAccSlot;
 
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
-			ISet<Type> abilityItemTypes = new HashSet<Type>();
+			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
 
 			// Find equipped ability items
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
@@ -44,12 +43,12 @@ namespace LockedAbilities {
 					newMaxAccSlot :
 					this.HighestAllowedAccessorySlot;
 
-				abilityItemTypes.Add( item.GetType() );
+				equippedAbilityItemTypes.Add( item.modItem.GetType() );
 			}
 
-			this.TestArmorSlots( abilityItemTypes );
-			this.TestMiscSlots( abilityItemTypes );
-			this.TestEquippedItem( abilityItemTypes );
+			this.TestArmorSlots( equippedAbilityItemTypes );
+			this.TestMiscSlots( equippedAbilityItemTypes );
+			this.TestEquippedItem( equippedAbilityItemTypes );
 		}
 	}
 }

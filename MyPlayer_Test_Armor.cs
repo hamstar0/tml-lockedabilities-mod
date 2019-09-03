@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using HamstarHelpers.Helpers.Debug;
 
 
 namespace LockedAbilities {
@@ -63,7 +64,7 @@ namespace LockedAbilities {
 					continue;
 				}
 
-				ModItem missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
+				var missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
 				Item testItem = this.player.armor[slot];
 
 				if( missingAbilityItemTemplate.IsArmorItemAnAbility( this.player, slot, testItem) ) {
