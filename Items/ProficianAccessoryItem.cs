@@ -33,8 +33,8 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public int? GetMaxAccessorySlot( Player player ) {
-			return PlayerItemHelpers.VanillaAccessorySlotFirst + 5;
+		public int? GetMaxArmorSlot( Player player ) {
+			return PlayerItemHelpers.VanillaAccessorySlotFirst + 6;
 		}
 
 		////////////////

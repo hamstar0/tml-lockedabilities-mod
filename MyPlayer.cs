@@ -19,22 +19,29 @@ namespace LockedAbilities {
 
 		public override void PreUpdate() {
 			var mymod = (LockedAbilitiesMod)this.mod;
-			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots;
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
-					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
+			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots + firstAccSlot;
+
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
 			ISet<Type> abilityItemTypes = new HashSet<Type>();
 
 			// Find equipped ability items
-			for( int i = PlayerItemHelpers.VanillaAccessorySlotFirst; i < maxAccSlot; i++ ) {
+			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
 				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
+				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
 					continue;
 				}
 
-				int? newMaxAccSlot = ( (IAbilityAccessoryItem)item ).GetMaxAccessorySlot( this.player );
-				this.HighestAllowedAccessorySlot = newMaxAccSlot.HasValue ?
-					newMaxAccSlot.Value :
+				var abilityItem = (IAbilityAccessoryItem)item.modItem;
+
+				int? newMaxAccSlotNull = abilityItem.GetMaxArmorSlot( this.player );
+				int newMaxAccSlot = newMaxAccSlotNull.HasValue ?
+					newMaxAccSlotNull.Value :
+					this.HighestAllowedAccessorySlot;
+
+				this.HighestAllowedAccessorySlot = newMaxAccSlot > this.HighestAllowedAccessorySlot ?
+					newMaxAccSlot :
 					this.HighestAllowedAccessorySlot;
 
 				abilityItemTypes.Add( item.GetType() );

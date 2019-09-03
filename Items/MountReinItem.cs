@@ -32,7 +32,7 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public int? GetMaxAccessorySlot( Player player ) {
+		public int? GetMaxArmorSlot( Player player ) {
 			return null;
 		}
 

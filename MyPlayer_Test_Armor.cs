@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
 		private void TestArmorSlots( ISet<Type> abilityItemTypes ) {
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player )
 					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
 
 			string alert;
@@ -35,12 +35,11 @@ namespace LockedAbilities {
 		////
 
 		private void TestArmorSlotCapacity() {
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
-					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int first = PlayerItemHelpers.VanillaAccessorySlotFirst + this.HighestAllowedAccessorySlot;
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 
 			// Test max accessory slots
-			for( int slot = first; slot < maxAccSlot; slot++ ) {
+			for( int slot = this.HighestAllowedAccessorySlot; slot < maxAccSlot; slot++ ) {
 				Item item = this.player.armor[slot];
 				if( item == null || item.IsAir ) {
 					continue;

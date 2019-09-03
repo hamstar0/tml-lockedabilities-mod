@@ -10,9 +10,6 @@ using Microsoft.Xna.Framework;
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
 		private void TestEquippedItem( ISet<Type> abilityItemTypes ) {
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
-					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
-
 			string alert;
 
 			// Test each item against equipped ability items

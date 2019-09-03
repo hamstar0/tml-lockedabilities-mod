@@ -18,15 +18,13 @@ namespace LockedAbilities {
 
 		private void DrawAccessoryOverlays( SpriteBatch sb ) {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
-			int limitAcc = myplayer.HighestAllowedAccessorySlot;
-			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
-				+ PlayerItemHelpers.VanillaAccessorySlotFirst;
-			
-			for( int i=PlayerItemHelpers.VanillaAccessorySlotFirst; i<maxAcc; i++ ) {
-				int accNum = i - PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
+			int myMaxAcc = myplayer.HighestAllowedAccessorySlot;
 
-				if( accNum >= limitAcc ) {
-					var pos = HUDElementHelpers.GetVanillaAccessorySlotScreenPosition( accNum );
+			for( int i=firstAccSlot; i<maxAcc; i++ ) {
+				if( i >= myMaxAcc ) {
+					var pos = HUDElementHelpers.GetVanillaAccessorySlotScreenPosition( i - firstAccSlot );
 					pos.X += 8;
 					pos.Y += 8;
 

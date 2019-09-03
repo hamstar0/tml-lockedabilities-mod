@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
 		private void TestMiscSlots( ISet<Type> abilityItemTypes ) {
-			int maxMiscSlot = Main.LocalPlayer.miscEquips.Length;
+			int maxMiscSlot = this.player.miscEquips.Length;
 
 			string alert;
 
