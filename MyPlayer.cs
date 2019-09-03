@@ -19,9 +19,20 @@ namespace LockedAbilities {
 
 		public override void PreUpdate() {
 			var mymod = (LockedAbilitiesMod)this.mod;
+			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots;
+
+			this.TestArmorSlots();
+			this.TestMiscSlots();
+			this.TestEquippedItem();
+		}
+
+
+		////////////////
+
+		private void TestArmorSlots() {
+			var mymod = (LockedAbilitiesMod)this.mod;
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
 					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
-			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots;
 
 			ISet<Type> abilityItemTypes = new HashSet<Type>();
 			string alert;
@@ -74,16 +85,19 @@ namespace LockedAbilities {
 		}
 
 
+		////
+
 		private bool TestPresentAbility( ISet<Type> equippedAbilityItemTypes, int slot, out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against equipped abilities
 			foreach( Type equippedAbilityItemType in equippedAbilityItemTypes ) {
 				IAbilityAccessoryItem abilityItemTemplate = mymod.AbilityItemTemplates[equippedAbilityItemType];
+				ModItem abilityModItem = (ModItem)abilityItemTemplate;
 				Item testItem = this.player.armor[slot];
 
-				if( abilityItemTemplate.TestItemDisabled(this.player, slot, testItem) ) {
-					alert = ((ModItem)abilityItemTemplate).DisplayName + " prohibits this.";
+				if( abilityItemTemplate.IsArmorItemDisabled(this.player, slot, testItem) ) {
+					alert = abilityModItem.item.HoverName + " prohibits this.";
 					return false;
 				}
 			}
@@ -102,10 +116,11 @@ namespace LockedAbilities {
 					continue;
 				}
 
+				ModItem abilityModItem = (ModItem)abilityItemTemplate;
 				Item testItem = this.player.armor[slot];
 
-				if( abilityItemTemplate.TestItemEnabled( this.player, slot, testItem) ) {
-					alert = "Need " + ((ModItem)abilityItemTemplate).DisplayName + " to equip.";
+				if( !abilityItemTemplate.IsArmorItemEnabled( this.player, slot, testItem) ) {
+					alert = "Need " + abilityModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}

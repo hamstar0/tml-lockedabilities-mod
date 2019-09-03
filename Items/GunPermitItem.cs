@@ -33,21 +33,37 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public bool TestItemDisabled( Player player, int slot, Item item ) {
+		public int? GetMaxAccessorySlot( Player player ) {
+			return null;
+		}
+
+		////////////////
+
+		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
+			return true;
+		}
+
+		public bool IsArmorItemDisabled( Player player, int slot, Item item ) {
 			return false;
 		}
 
-		public bool TestItemEnabled( Player player, int slot, Item item ) {
+		public bool IsMiscItemEnabled( Player player, Item item ) {
+			return true;
+		}
+
+		public bool IsMiscItemDisabled( Player player, Item item ) {
+			return false;
+		}
+
+		public bool IsEquipItemEnabled( Player player, Item item ) {
 			if( item.ranged && item.useAmmo == AmmoID.Bullet ) {
 				return true;
 			}
 			return false;
 		}
 
-		////
-
-		public int? GetMaxAccessorySlot( Player player ) {
-			return null;
+		public bool IsEquipItemDisabled( Player player, Item item ) {
+			return false;
 		}
 	}
 }

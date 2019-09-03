@@ -33,11 +33,13 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public bool TestItemDisabled( Player player, int slot, Item item ) {
-			return false;
+		public int? GetMaxAccessorySlot( Player player ) {
+			return null;
 		}
 
-		public bool TestItemEnabled( Player player, int slot, Item item ) {
+		////////////////
+
+		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
 			if( slot >= 0 && slot < PlayerItemHelpers.VanillaAccessorySlotFirst ) {
 				if( item.defense >= 4 ) {
 					return true;
@@ -46,10 +48,24 @@ namespace LockedAbilities.Items {
 			return false;
 		}
 
-		////
+		public bool IsArmorItemDisabled( Player player, int slot, Item item ) {
+			return false;
+		}
 
-		public int? GetMaxAccessorySlot( Player player ) {
-			return null;
+		public bool IsMiscItemEnabled( Player player, Item item ) {
+			return true;
+		}
+
+		public bool IsMiscItemDisabled( Player player, Item item ) {
+			return false;
+		}
+
+		public bool IsEquipItemEnabled( Player player, Item item ) {
+			return true;
+		}
+
+		public bool IsEquipItemDisabled( Player player, Item item ) {
+			return false;
 		}
 	}
 }
