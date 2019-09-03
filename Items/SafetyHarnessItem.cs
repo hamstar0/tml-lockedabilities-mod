@@ -40,7 +40,7 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
+		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
 			switch( item.type ) {
 			case ItemID.AdhesiveBandage:
 			case ItemID.AnkhCharm:
@@ -91,23 +91,11 @@ namespace LockedAbilities.Items {
 			return false;
 		}
 
-		public bool IsArmorItemDisabled( Player player, int slot, Item item ) {
+		public bool IsMiscItemAnAbility( Player player, Item item ) {
 			return false;
 		}
 
-		public bool IsMiscItemEnabled( Player player, Item item ) {
-			return true;
-		}
-
-		public bool IsMiscItemDisabled( Player player, Item item ) {
-			return false;
-		}
-
-		public bool IsEquipItemEnabled( Player player, Item item ) {
-			return true;
-		}
-
-		public bool IsEquipItemDisabled( Player player, Item item ) {
+		public bool IsEquipItemAnAbility( Player player, Item item ) {
 			return false;
 		}
 	}

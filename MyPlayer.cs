@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 
 namespace LockedAbilities {
-	class LockedAbilitiesPlayer : ModPlayer {
+	partial class LockedAbilitiesPlayer : ModPlayer {
 		public int HighestAllowedAccessorySlot { get; private set; } = 1;
 
 		public override bool CloneNewInstances => false;
@@ -21,30 +21,18 @@ namespace LockedAbilities {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots;
 
-			this.TestArmorSlots();
-			this.TestMiscSlots();
-			this.TestEquippedItem();
-		}
-
-
-		////////////////
-
-		private void TestArmorSlots() {
-			var mymod = (LockedAbilitiesMod)this.mod;
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( Main.LocalPlayer )
 					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
-
 			ISet<Type> abilityItemTypes = new HashSet<Type>();
-			string alert;
 
 			// Find equipped ability items
 			for( int i = PlayerItemHelpers.VanillaAccessorySlotFirst; i < maxAccSlot; i++ ) {
 				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
+				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
 					continue;
 				}
 
-				int? newMaxAccSlot = ((IAbilityAccessoryItem)item).GetMaxAccessorySlot( this.player );
+				int? newMaxAccSlot = ( (IAbilityAccessoryItem)item ).GetMaxAccessorySlot( this.player );
 				this.HighestAllowedAccessorySlot = newMaxAccSlot.HasValue ?
 					newMaxAccSlot.Value :
 					this.HighestAllowedAccessorySlot;
@@ -52,81 +40,9 @@ namespace LockedAbilities {
 				abilityItemTypes.Add( item.GetType() );
 			}
 
-			// Test each item against equipped ability items
-			for( int slot = 0; slot < maxAccSlot; slot++ ) {
-				Item item = this.player.armor[slot];
-				if( item == null || item.IsAir ) {
-					continue;
-				}
-
-				if( !this.TestPresentAbility(abilityItemTypes, slot, out alert) ) {
-					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
-					continue;
-				}
-				if( !this.TestMissingAbility(abilityItemTypes, slot, out alert) ) {
-					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
-					continue;
-				}
-			}
-
-			// Test max accessory slots
-			for( int slot = this.HighestAllowedAccessorySlot; slot < maxAccSlot; slot++ ) {
-				Item item = this.player.armor[slot];
-				if( item == null || item.IsAir ) {
-					continue;
-				}
-
-				Main.NewText( "Invalid accessory slot.", Color.Yellow );
-				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
-				break;
-			}
-		}
-
-
-		////
-
-		private bool TestPresentAbility( ISet<Type> equippedAbilityItemTypes, int slot, out string alert ) {
-			var mymod = (LockedAbilitiesMod)this.mod;
-
-			// Test each item against equipped abilities
-			foreach( Type equippedAbilityItemType in equippedAbilityItemTypes ) {
-				IAbilityAccessoryItem abilityItemTemplate = mymod.AbilityItemTemplates[equippedAbilityItemType];
-				ModItem abilityModItem = (ModItem)abilityItemTemplate;
-				Item testItem = this.player.armor[slot];
-
-				if( abilityItemTemplate.IsArmorItemDisabled(this.player, slot, testItem) ) {
-					alert = abilityModItem.item.HoverName + " prohibits this.";
-					return false;
-				}
-			}
-
-			alert = "";
-			return true;
-		}
-
-		private bool TestMissingAbility( ISet<Type> equippedAbilityItemTypes, int slot, out string alert ) {
-			var mymod = (LockedAbilitiesMod)this.mod;
-			int _ = mymod.Config.InitialAccessorySlots;
-
-			// Test each item against missing abilities
-			foreach( (Type abilityItemType, IAbilityAccessoryItem abilityItemTemplate) in mymod.AbilityItemTemplates ) {
-				if( equippedAbilityItemTypes.Contains( abilityItemType ) ) {
-					continue;
-				}
-
-				ModItem abilityModItem = (ModItem)abilityItemTemplate;
-				Item testItem = this.player.armor[slot];
-
-				if( !abilityItemTemplate.IsArmorItemEnabled( this.player, slot, testItem) ) {
-					alert = "Need " + abilityModItem.item.HoverName + " to equip.";
-					return false;
-				}
-			}
-
-			alert = "";
-			return true;
+			this.TestArmorSlots( abilityItemTypes );
+			this.TestMiscSlots( abilityItemTypes );
+			this.TestEquippedItem( abilityItemTypes );
 		}
 	}
 }
