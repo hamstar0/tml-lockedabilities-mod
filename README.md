@@ -12,4 +12,4 @@ Locked abilities (at start):
 - Protection equipment
 - Added accessory slots
 
-http://forums.terraria.org/index.php?threads/lives-injury.52287/
+https://forums.terraria.org/index.php?threads/locked-abilities-primary-player-abilities-are-now-sealed-away-including-accessory-slots.82662/
