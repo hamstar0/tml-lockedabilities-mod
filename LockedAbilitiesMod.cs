@@ -14,7 +14,7 @@ namespace LockedAbilities {
 
 		////////////////
 
-		public LockedAbilitiesConfig Config => this.GetConfig<LockedAbilitiesConfig>();
+		public LockedAbilitiesConfig Config => ModContent.GetInstance<LockedAbilitiesConfig>();
 
 		private IDictionary<Type, IAbilityAccessoryItem> _AbilityItemTemplates = new Dictionary<Type, IAbilityAccessoryItem>();
 		public IReadOnlyDictionary<Type, IAbilityAccessoryItem> AbilityItemTemplates { get; }
