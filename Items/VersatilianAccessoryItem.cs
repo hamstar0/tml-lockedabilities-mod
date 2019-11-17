@@ -53,7 +53,7 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public float WorldGenChestWeight( int tileX, int tileY ) {
+		public float WorldGenChestWeight( Chest chest ) {
 			return 1f;
 		}
 	}

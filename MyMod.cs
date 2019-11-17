@@ -36,7 +36,7 @@ namespace LockedAbilities {
 				this.DisabledItemTex = ModContent.GetTexture( "Terraria/MapDeath" );
 			}
 
-			this.LoadMods();
+			this.LoadChestImplantMod();
 		}
 
 		////

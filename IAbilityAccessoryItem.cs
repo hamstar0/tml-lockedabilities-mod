@@ -4,7 +4,7 @@ using Terraria;
 
 namespace LockedAbilities {
 	public interface IAbilityAccessoryItem {
-		float WorldGenChestWeight();
+		float WorldGenChestWeight( Chest chest );
 		int? GetMaxArmorSlot( Player player );
 		bool IsArmorItemAnAbility( Player player, int slot, Item item );
 		bool IsMiscItemAnAbility( Player player, int slot, Item item );

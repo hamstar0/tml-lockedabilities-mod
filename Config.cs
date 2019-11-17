@@ -20,5 +20,9 @@ namespace LockedAbilities {
 		[Range( 0f, 1f )]
 		[DefaultValue( 0.5f )]
 		public float WorldGenChestImplantChance { get; set; }
+
+		////
+
+		public bool IsBackBraceItemFindable { get; set; } = true;
 	}
 }

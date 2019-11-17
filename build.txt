@@ -1,7 +1,6 @@
 displayName = Locked Abilities
 author = hamstar
 version = 1.1.0
-modReferences = HamstarHelpers@5.4.0
-weakReferences = ChestImplants@1.1.0
+modReferences = HamstarHelpers@5.4.0, ChestImplants@1.1.0
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
 homepage = https://github.com/hamstar0/tml-lockedabilities-mod
