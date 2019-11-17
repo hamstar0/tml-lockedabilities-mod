@@ -20,6 +20,9 @@
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ChestImplants">
+      <HintPath>..\..\Chest Implants\ChestImplants\bin\Release\net452\ChestImplants.dll</HintPath>
+    </Reference>
     <Reference Include="HamstarHelpers">
       <HintPath>..\..\Mod Helpers\v5 (tML11)\HamstarHelpers\bin\Release\net452\HamstarHelpers.dll</HintPath>
     </Reference>

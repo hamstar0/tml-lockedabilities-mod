@@ -10,10 +10,15 @@ namespace LockedAbilities {
 
 		////////////////
 
-		[Label("Starting amount of available accessory slots")]
+		[Label( "Starting amount of available accessory slots" )]
 		[Slider()]
-		[Range(0, 6)]
-		[DefaultValue(1)]
-		public int InitialAccessorySlots = 1;
+		[Range( 0, 6 )]
+		[DefaultValue( 1 )]
+		public int InitialAccessorySlots { get; set; } = 1;
+
+		[Label( "Ability accessory % chance in chest (needs Chest Implants mod)" )]
+		[Range( 0f, 1f )]
+		[DefaultValue( 0.5f )]
+		public float WorldGenChestImplantChance { get; set; }
 	}
 }

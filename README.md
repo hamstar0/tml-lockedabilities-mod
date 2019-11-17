@@ -1,6 +1,6 @@
 # Locked Abilities
 
-Locks many primary player abilities, particularly those enabled by accessories... including total accessory slots (all but 1)! Abilities may be unlocked with special accessories.
+Locks many primary player abilities, particularly those enabled by accessories... including total accessory slots (all but 1)! Abilities may be unlocked with special accessories. If the Chest Implants mod is present, ability accessories may be found randonly in world chests.
 
 Locked abilities (at start):
 - Grappling

@@ -10,11 +10,11 @@ namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public static LockedAbilitiesMod Instance { get; private set; }
 
+		public static LockedAbilitiesConfig Config => ModContent.GetInstance<LockedAbilitiesConfig>();
+
 
 
 		////////////////
-
-		public LockedAbilitiesConfig Config => ModContent.GetInstance<LockedAbilitiesConfig>();
 
 		private IDictionary<Type, IAbilityAccessoryItem> _AbilityItemTemplates = new Dictionary<Type, IAbilityAccessoryItem>();
 		public IReadOnlyDictionary<Type, IAbilityAccessoryItem> AbilityItemTemplates { get; }
@@ -35,7 +35,11 @@ namespace LockedAbilities {
 			if( Main.netMode != 2 ) {   // Not server
 				this.DisabledItemTex = ModContent.GetTexture( "Terraria/MapDeath" );
 			}
+
+			this.LoadMods();
 		}
+
+		////
 
 		public override void Unload() {
 			LockedAbilitiesMod.Instance = null;

@@ -50,5 +50,11 @@ namespace LockedAbilities.Items {
 		public bool IsEquipItemAnAbility( Player player, Item item ) {
 			return false;
 		}
+
+		////////////////
+
+		public float WorldGenChestWeight( int tileX, int tileY ) {
+			return 1f;
+		}
 	}
 }

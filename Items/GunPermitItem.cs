@@ -53,5 +53,11 @@ namespace LockedAbilities.Items {
 			}
 			return false;
 		}
+
+		////////////////
+
+		public float WorldGenChestWeight() {
+			return 1f;
+		}
 	}
 }
