@@ -57,7 +57,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return 1f;
+			return LockedAbilitiesMod.Config.WorldGenChestImplantGrappleHarnessChance;
 		}
 	}
 }

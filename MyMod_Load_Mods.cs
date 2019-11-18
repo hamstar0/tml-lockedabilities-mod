@@ -1,19 +1,56 @@
 using ChestImplants;
 using HamstarHelpers.Classes.Errors;
+using HamstarHelpers.Helpers.DotNET;
 using HamstarHelpers.Helpers.Tiles;
+using HamstarHelpers.Helpers.TModLoader;
+using LockedAbilities.Items;
+using LockedAbilities.Items.Accessories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 
 namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public static int GetRandomAccessoryForLocation( Chest chest, bool isLocked ) {
-			float totalWeight = 0;
+			IEnumerable<(ModItem myitem, float chance)> getWeight() {
+				var item1 = ModContent.GetInstance<BackBraceItem>();
+				var item2 = ModContent.GetInstance<BootLacesItem>();
+				var item3 = ModContent.GetInstance<FlyingCertificateItem>();
+				var item4 = ModContent.GetInstance<GrappleHarnessItem>();
+				var item5 = ModContent.GetInstance<GunPermitItem>();
+				var item6 = ModContent.GetInstance<MountReinItem>();
+				var item7 = ModContent.GetInstance<SafetyHarnessItem>();
+				var item8 = ModContent.GetInstance<DarkHeartPieceItem>();
+				yield return ( item1, item1.WorldGenChestWeight(chest) );
+				yield return ( item2, item2.WorldGenChestWeight(chest) );
+				yield return ( item3, item3.WorldGenChestWeight(chest) );
+				yield return ( item4, item4.WorldGenChestWeight(chest) );
+				yield return ( item5, item5.WorldGenChestWeight(chest) );
+				yield return ( item6, item6.WorldGenChestWeight(chest) );
+				yield return ( item7, item7.WorldGenChestWeight(chest) );
+				yield return ( item8, LockedAbilitiesMod.Config.WorldGenChestImplantDarkHeartPieceChance );
+			}
 
-			totalWeight += ModContent.GetInstance<BackBraceItem>().WorldGenChestWeight( chest );
-			totalWeight += ModContent.GetInstance<BootLacesItem>().WorldGenChestWeight( chest );
-			totalWeight += ModContent.GetInstance<BootLacesItem>().WorldGenChestWeight( chest );
+			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
+			float totalWeight = getWeight()
+				.SafeSelect( item => item.chance )
+				.Sum();
+
+			float randVal = rand.NextFloat() * totalWeight;
+			float climbingWeights = 0f;
+
+			foreach( (ModItem myitem, float chance) in getWeight() ) {
+				climbingWeights += chance;
+				if( randVal < climbingWeights ) {
+					return myitem.item.type;
+				}
+			}
+
+			return -1;
 		}
 
 
@@ -37,11 +74,16 @@ namespace LockedAbilities {
 					}
 				}
 
+				int randItemType = LockedAbilitiesMod.GetRandomAccessoryForLocation( chest, isLocked );
+				if( randItemType == -1 ) {
+					throw new ModHelpersException( "Could not pick random item for chest" );
+				}
+
 				for( int i=chest.item.Length; i>0; i-- ) {
 					chest.item[i] = chest.item[i-1];
 				}
 				chest.item[0] = new Item();
-				chest.item[0].SetDefaults( LockedAbilitiesMod.GetRandomAccessoryForLocation(chest, isLocked) );
+				chest.item[0].SetDefaults( randItemType );
 			} );
 		}
 	}
