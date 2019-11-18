@@ -4,8 +4,8 @@ using Terraria;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class UtilitarianAccessoryItem : ModItem, IAbilityAccessoryItem {
+namespace LockedAbilities.Items.Accessories {
+	class BackBraceItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -17,29 +17,34 @@ namespace LockedAbilities.Items {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Utilitarian Accessory" );
-			this.Tooltip.SetDefault( "Allows equipping 3 other accessories" );
+			this.DisplayName.SetDefault( "Back Brace" );
+			this.Tooltip.SetDefault( "Allows equipping heavy armor" );
 		}
 
 		public override void SetDefaults() {
-			this.item.width = UtilitarianAccessoryItem.Width;
-			this.item.height = UtilitarianAccessoryItem.Height;
+			this.item.width = BackBraceItem.Width;
+			this.item.height = BackBraceItem.Height;
 			this.item.maxStack = 1;
-			this.item.value = Item.buyPrice( 0, 50, 0, 0 );
-			this.item.rare = 7;
+			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
+			this.item.rare = 4;
 			this.item.accessory = true;
 		}
 
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
-			return PlayerItemHelpers.VanillaAccessorySlotFirst + 4;
+		public int? GetAddedAccessorySlots( Player player ) {
+			return null;
 		}
 
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+			if( slot >= 0 && slot < PlayerItemHelpers.VanillaAccessorySlotFirst ) {
+				if( item.defense >= 4 ) {
+					return true;
+				}
+			}
 			return false;
 		}
 

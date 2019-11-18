@@ -1,11 +1,11 @@
-﻿using HamstarHelpers.Helpers.Items.Attributes;
-using System;
+﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class GrappleHarnessItem : ModItem, IAbilityAccessoryItem {
+namespace LockedAbilities.Items.Accessories {
+	class GunPermitItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -17,15 +17,15 @@ namespace LockedAbilities.Items {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Grapple Harness" );
-			this.Tooltip.SetDefault( "Allows equipping grappling items" );
+			this.DisplayName.SetDefault( "Gun Permit" );
+			this.Tooltip.SetDefault( "Allows equipping guns" );
 		}
 
 		public override void SetDefaults() {
-			this.item.width = GrappleHarnessItem.Width;
-			this.item.height = GrappleHarnessItem.Height;
+			this.item.width = GunPermitItem.Width;
+			this.item.height = GunPermitItem.Height;
 			this.item.maxStack = 1;
-			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 25, 0, 0 );
 			this.item.rare = 5;
 			this.item.accessory = true;
 		}
@@ -33,7 +33,7 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
+		public int? GetAddedAccessorySlots( Player player ) {
 			return null;
 		}
 
@@ -44,13 +44,13 @@ namespace LockedAbilities.Items {
 		}
 
 		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
-			if( ItemAttributeHelpers.IsGrapple( item ) ) {
-				return true;
-			}
 			return false;
 		}
 
 		public bool IsEquipItemAnAbility( Player player, Item item ) {
+			if( item.ranged && item.useAmmo == AmmoID.Bullet ) {
+				return true;
+			}
 			return false;
 		}
 

@@ -4,11 +4,13 @@ using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Players;
+using Terraria.ModLoader.IO;
 
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		public int HighestAllowedAccessorySlot { get; private set; } = 1;
+		public int IntrinsicallyAllowedAccessorySlots { get; private set; } = 1;
+		public int AllowedAccessorySlots { get; private set; } = 1;
 
 		public override bool CloneNewInstances => false;
 
@@ -16,32 +18,42 @@ namespace LockedAbilities {
 
 		////////////////
 
+		public override void Initialize() {
+			this.IntrinsicallyAllowedAccessorySlots = LockedAbilitiesMod.Config.InitialAccessorySlots;
+			this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+		}
+
+		public override void Load( TagCompound tag ) {
+			this.IntrinsicallyAllowedAccessorySlots = LockedAbilitiesMod.Config.InitialAccessorySlots;
+			this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+
+			if( tag.ContainsKey("highest_acc_slots") ) {
+				this.IntrinsicallyAllowedAccessorySlots = tag.GetInt( "highest_acc_slots" );
+				this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+			}
+		}
+
+		public override TagCompound Save() {
+			return new TagCompound {
+				{ "highest_acc_slots", this.IntrinsicallyAllowedAccessorySlots }
+			};
+		}
+
+		////////////////
+
 		public override void PreUpdate() {
-			var mymod = (LockedAbilitiesMod)this.mod;
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-
-			this.HighestAllowedAccessorySlot = mymod.Config.InitialAccessorySlots + firstAccSlot;
-
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
 
 			// Find equipped ability items
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
 				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
+				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
 					continue;
 				}
 
-				var abilityItem = (IAbilityAccessoryItem)item.modItem;
-
-				int? newMaxAccSlotNull = abilityItem.GetMaxArmorSlot( this.player );
-				int newMaxAccSlot = newMaxAccSlotNull.HasValue ?
-					newMaxAccSlotNull.Value :
-					this.HighestAllowedAccessorySlot;
-
-				this.HighestAllowedAccessorySlot = newMaxAccSlot > this.HighestAllowedAccessorySlot ?
-					newMaxAccSlot :
-					this.HighestAllowedAccessorySlot;
+				this.UpdateMaxAllowedAccessorySlots( item );
 
 				equippedAbilityItemTypes.Add( item.modItem.GetType() );
 			}
@@ -49,6 +61,28 @@ namespace LockedAbilities {
 			this.TestArmorSlots( equippedAbilityItemTypes );
 			this.TestMiscSlots( equippedAbilityItemTypes );
 			this.TestEquippedItem( equippedAbilityItemTypes );
+		}
+
+		////
+
+		private void UpdateMaxAllowedAccessorySlots( Item item ) {
+			var abilityItem = (IAbilityAccessoryItem)item.modItem;
+
+			int? addedAccSlots = abilityItem.GetAddedAccessorySlots( this.player );
+			int testAddedAccSlots = addedAccSlots.HasValue ? addedAccSlots.Value : 0;
+			int testLastAccSlot = testAddedAccSlots + this.IntrinsicallyAllowedAccessorySlots;
+
+			this.AllowedAccessorySlots = this.AllowedAccessorySlots < testLastAccSlot
+				? testAddedAccSlots
+				: this.AllowedAccessorySlots;
+		}
+
+
+		////////////////
+
+		public void IncreaseAllowedAccessorySlots() {
+			this.IntrinsicallyAllowedAccessorySlots += 1;
+			this.AllowedAccessorySlots += 1;
 		}
 	}
 }

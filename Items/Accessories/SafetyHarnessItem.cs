@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
+namespace LockedAbilities.Items.Accessories {
 	class SafetyHarnessItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
@@ -34,7 +34,7 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
+		public int? GetAddedAccessorySlots( Player player ) {
 			return null;
 		}
 

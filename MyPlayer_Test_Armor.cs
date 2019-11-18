@@ -33,25 +33,6 @@ namespace LockedAbilities {
 			this.TestArmorSlotCapacity();
 		}
 
-		////
-
-		private void TestArmorSlotCapacity() {
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
-
-			// Test max accessory slots
-			for( int slot = this.HighestAllowedAccessorySlot; slot < maxAccSlot; slot++ ) {
-				Item item = this.player.armor[slot];
-				if( item == null || item.IsAir ) {
-					continue;
-				}
-
-				Main.NewText( "Invalid accessory slot.", Color.Yellow );
-				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
-				break;
-			}
-		}
-
 
 		////
 
@@ -75,6 +56,26 @@ namespace LockedAbilities {
 
 			alert = "";
 			return true;
+		}
+
+
+		////
+
+		private void TestArmorSlotCapacity() {
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
+
+			// Test max accessory slots
+			for( int slot = (firstAccSlot + this.AllowedAccessorySlots); slot < maxAccSlot; slot++ ) {
+				Item item = this.player.armor[slot];
+				if( item == null || item.IsAir ) {
+					continue;
+				}
+
+				Main.NewText( "Invalid accessory slot.", Color.Yellow );
+				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
+				break;
+			}
 		}
 	}
 }

@@ -20,7 +20,7 @@ namespace LockedAbilities {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
-			int myMaxAcc = myplayer.HighestAllowedAccessorySlot;
+			int myMaxAcc = myplayer.AllowedAccessorySlots;
 
 			for( int i=firstAccSlot; i<maxAcc; i++ ) {
 				if( i >= myMaxAcc ) {

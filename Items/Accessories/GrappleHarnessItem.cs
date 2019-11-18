@@ -1,11 +1,11 @@
-﻿using System;
+﻿using HamstarHelpers.Helpers.Items.Attributes;
+using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class FlyingCertificateItem : ModItem, IAbilityAccessoryItem {
+namespace LockedAbilities.Items.Accessories {
+	class GrappleHarnessItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -17,15 +17,15 @@ namespace LockedAbilities.Items {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Flying Certificate" );
-			this.Tooltip.SetDefault( "Allows equipping flight accessories" );
+			this.DisplayName.SetDefault( "Grapple Harness" );
+			this.Tooltip.SetDefault( "Allows equipping grappling items" );
 		}
 
 		public override void SetDefaults() {
-			this.item.width = FlyingCertificateItem.Width;
-			this.item.height = FlyingCertificateItem.Height;
+			this.item.width = GrappleHarnessItem.Width;
+			this.item.height = GrappleHarnessItem.Height;
 			this.item.maxStack = 1;
-			this.item.value = Item.buyPrice( 0, 50, 0, 0 );
+			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
 			this.item.rare = 5;
 			this.item.accessory = true;
 		}
@@ -33,29 +33,20 @@ namespace LockedAbilities.Items {
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
+		public int? GetAddedAccessorySlots( Player player ) {
 			return null;
 		}
 
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
-			if( item.accessory && !item.vanity ) {
-				if( item.wingSlot != -1 ) {
-					return true;
-				}
-				switch( item.type ) {
-				case ItemID.RocketBoots:
-				case ItemID.SpectreBoots:
-				case ItemID.LightningBoots:
-				case ItemID.FrostsparkBoots:
-					return true;
-				}
-			}
 			return false;
 		}
 
 		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+			if( ItemAttributeHelpers.IsGrapple( item ) ) {
+				return true;
+			}
 			return false;
 		}
 

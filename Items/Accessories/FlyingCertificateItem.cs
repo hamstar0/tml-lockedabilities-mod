@@ -1,11 +1,11 @@
-﻿using HamstarHelpers.Helpers.Items.Attributes;
-using System;
+﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class BootLacesItem : ModItem, IAbilityAccessoryItem {
+namespace LockedAbilities.Items.Accessories {
+	class FlyingCertificateItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -17,31 +17,38 @@ namespace LockedAbilities.Items {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Boot Laces" );
-			this.Tooltip.SetDefault( "Allows equipping shoe accessories" );
+			this.DisplayName.SetDefault( "Flying Certificate" );
+			this.Tooltip.SetDefault( "Allows equipping flight accessories" );
 		}
 
 		public override void SetDefaults() {
-			this.item.width = BootLacesItem.Width;
-			this.item.height = BootLacesItem.Height;
+			this.item.width = FlyingCertificateItem.Width;
+			this.item.height = FlyingCertificateItem.Height;
 			this.item.maxStack = 1;
-			this.item.value = Item.buyPrice( 0, 10, 0, 0 );
-			this.item.rare = 4;
+			this.item.value = Item.buyPrice( 0, 50, 0, 0 );
+			this.item.rare = 5;
 			this.item.accessory = true;
 		}
 
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
+		public int? GetAddedAccessorySlots( Player player ) {
 			return null;
 		}
 
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
-			if( item.shoeSlot != -1 && item.accessory && !item.vanity ) {
-				if( item.handOnSlot == -1 && item.handOffSlot == -1 && item.waistSlot == -1 ) {
+			if( item.accessory && !item.vanity ) {
+				if( item.wingSlot != -1 ) {
+					return true;
+				}
+				switch( item.type ) {
+				case ItemID.RocketBoots:
+				case ItemID.SpectreBoots:
+				case ItemID.LightningBoots:
+				case ItemID.FrostsparkBoots:
 					return true;
 				}
 			}

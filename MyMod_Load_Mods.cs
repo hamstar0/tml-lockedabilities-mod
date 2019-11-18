@@ -9,7 +9,11 @@ using Terraria.ModLoader;
 namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public static int GetRandomAccessoryForLocation( Chest chest, bool isLocked ) {
+			float totalWeight = 0;
 
+			totalWeight += ModContent.GetInstance<BackBraceItem>().WorldGenChestWeight( chest );
+			totalWeight += ModContent.GetInstance<BootLacesItem>().WorldGenChestWeight( chest );
+			totalWeight += ModContent.GetInstance<BootLacesItem>().WorldGenChestWeight( chest );
 		}
 
 

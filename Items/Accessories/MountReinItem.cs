@@ -1,11 +1,10 @@
 ﻿using System;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class GunPermitItem : ModItem, IAbilityAccessoryItem {
+namespace LockedAbilities.Items.Accessories {
+	class MountReinItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -17,23 +16,23 @@ namespace LockedAbilities.Items {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Gun Permit" );
-			this.Tooltip.SetDefault( "Allows equipping guns" );
+			this.DisplayName.SetDefault( "Saddle Harness" );
+			this.Tooltip.SetDefault( "Allows mounts" );
 		}
 
 		public override void SetDefaults() {
-			this.item.width = GunPermitItem.Width;
-			this.item.height = GunPermitItem.Height;
+			this.item.width = MountReinItem.Width;
+			this.item.height = MountReinItem.Height;
 			this.item.maxStack = 1;
-			this.item.value = Item.buyPrice( 0, 25, 0, 0 );
-			this.item.rare = 5;
+			this.item.value = Item.buyPrice( 0, 50, 0, 0 );
+			this.item.rare = 6;
 			this.item.accessory = true;
 		}
 
 
 		////////////////
 
-		public int? GetMaxArmorSlot( Player player ) {
+		public int? GetAddedAccessorySlots( Player player ) {
 			return null;
 		}
 
@@ -44,13 +43,13 @@ namespace LockedAbilities.Items {
 		}
 
 		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+			if( item.mountType >= 0 ) {
+				return true;
+			}
 			return false;
 		}
 
 		public bool IsEquipItemAnAbility( Player player, Item item ) {
-			if( item.ranged && item.useAmmo == AmmoID.Bullet ) {
-				return true;
-			}
 			return false;
 		}
 
