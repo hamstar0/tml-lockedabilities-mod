@@ -66,7 +66,7 @@ namespace LockedAbilities {
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 
 			// Test max accessory slots
-			for( int slot = (firstAccSlot + this.AllowedAccessorySlots); slot < maxAccSlot; slot++ ) {
+			for( int slot = (firstAccSlot + this.TotalAllowedAccessorySlots); slot < maxAccSlot; slot++ ) {
 				Item item = this.player.armor[slot];
 				if( item == null || item.IsAir ) {
 					continue;

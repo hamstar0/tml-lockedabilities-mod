@@ -12,7 +12,7 @@ namespace LockedAbilities {
 
 	
 	public class LockedAbilitiesConfig : StackableModConfig {
-		public static LockedAbilitiesConfig Instance => StackableModConfig.GetMergedConfigs<LockedAbilitiesConfig>();
+		public static LockedAbilitiesConfig Instance => ModConfigStack.GetMergedConfigs<LockedAbilitiesConfig>();
 
 
 

@@ -9,8 +9,8 @@ using Terraria.ModLoader.IO;
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		public int IntrinsicallyAllowedAccessorySlots { get; private set; } = 1;
-		public int AllowedAccessorySlots { get; private set; } = 1;
+		public int InternalAllowedAccessorySlots { get; private set; } = 1;
+		public int TotalAllowedAccessorySlots { get; private set; } = 1;
 
 		public override bool CloneNewInstances => false;
 
@@ -19,23 +19,23 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void Initialize() {
-			this.IntrinsicallyAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
-			this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+			this.InternalAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 		}
 
 		public override void Load( TagCompound tag ) {
-			this.IntrinsicallyAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
-			this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+			this.InternalAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 
 			if( tag.ContainsKey("highest_acc_slots") ) {
-				this.IntrinsicallyAllowedAccessorySlots = tag.GetInt( "highest_acc_slots" );
-				this.AllowedAccessorySlots = this.IntrinsicallyAllowedAccessorySlots;
+				this.InternalAllowedAccessorySlots = tag.GetInt( "highest_acc_slots" );
+				this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 			}
 		}
 
 		public override TagCompound Save() {
 			return new TagCompound {
-				{ "highest_acc_slots", this.IntrinsicallyAllowedAccessorySlots }
+				{ "highest_acc_slots", this.InternalAllowedAccessorySlots }
 			};
 		}
 
@@ -70,19 +70,19 @@ namespace LockedAbilities {
 
 			int? addedAccSlots = abilityItem.GetAddedAccessorySlots( this.player );
 			int testAddedAccSlots = addedAccSlots.HasValue ? addedAccSlots.Value : 0;
-			int testLastAccSlot = testAddedAccSlots + this.IntrinsicallyAllowedAccessorySlots;
+			int testLastAccSlot = testAddedAccSlots + this.InternalAllowedAccessorySlots;
 
-			this.AllowedAccessorySlots = this.AllowedAccessorySlots < testLastAccSlot
+			this.TotalAllowedAccessorySlots = this.TotalAllowedAccessorySlots < testLastAccSlot
 				? testAddedAccSlots
-				: this.AllowedAccessorySlots;
+				: this.TotalAllowedAccessorySlots;
 		}
 
 
 		////////////////
 
 		public void IncreaseAllowedAccessorySlots() {
-			this.IntrinsicallyAllowedAccessorySlots += 1;
-			this.AllowedAccessorySlots += 1;
+			this.InternalAllowedAccessorySlots += 1;
+			this.TotalAllowedAccessorySlots += 1;
 		}
 	}
 }

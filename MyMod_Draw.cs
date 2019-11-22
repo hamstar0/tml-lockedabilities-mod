@@ -20,16 +20,18 @@ namespace LockedAbilities {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
-			int myMaxAcc = myplayer.AllowedAccessorySlots;
+			int myMaxAcc = myplayer.TotalAllowedAccessorySlots;
 
 			for( int i=firstAccSlot; i<maxAcc; i++ ) {
-				if( i >= myMaxAcc ) {
-					var pos = HUDElementHelpers.GetVanillaAccessorySlotScreenPosition( i - firstAccSlot );
-					pos.X += 8;
-					pos.Y += 8;
-
-					sb.Draw( this.DisabledItemTex, pos, Color.White );
+				if( (i - firstAccSlot) < myMaxAcc ) {
+					continue;
 				}
+
+				var pos = HUDElementHelpers.GetVanillaAccessorySlotScreenPosition( i - firstAccSlot );
+				pos.X += 8;
+				pos.Y += 8;
+
+				sb.Draw( this.DisabledItemTex, pos, Color.White );
 			}
 		}
 	}
