@@ -1,4 +1,5 @@
 ﻿using HamstarHelpers.Classes.UI.ModConfig;
+using HamstarHelpers.Services.Configs;
 using System;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
@@ -9,9 +10,14 @@ namespace LockedAbilities {
 
 
 
+	
+	public class LockedAbilitiesConfig : StackableModConfig {
+		public static LockedAbilitiesConfig Instance => StackableModConfig.GetMergedConfigs<LockedAbilitiesConfig>();
 
 
-	public class LockedAbilitiesConfig : ModConfig {
+
+		////////////////
+
 		public override ConfigScope Mode => ConfigScope.ServerSide;
 
 
@@ -23,8 +29,8 @@ namespace LockedAbilities {
 		[DefaultValue( 1 )]
 		public int InitialAccessorySlots { get; set; } = 1;
 
-		////
 
+		////
 
 		[Tooltip( "Ability item % chance in world gen chest" )]
 		[Range( 0f, 1f )]

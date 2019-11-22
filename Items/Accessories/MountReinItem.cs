@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class MountReinItem : ModItem, IAbilityAccessoryItem {
+	public class MountReinItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -56,7 +56,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantMountReinChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantMountReinChance;
 		}
 	}
 }

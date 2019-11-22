@@ -8,4 +8,6 @@ Locked abilities:
 - Protections
 - "Heavy" armor
 - Protection equipment
-- Added accessory slots
+- Accessory slots (all but 1)
+
+Configurable.

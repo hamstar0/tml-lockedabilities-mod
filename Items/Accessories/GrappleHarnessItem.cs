@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class GrappleHarnessItem : ModItem, IAbilityAccessoryItem {
+	public class GrappleHarnessItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -57,7 +57,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantGrappleHarnessChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantGrappleHarnessChance;
 		}
 	}
 }

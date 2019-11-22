@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class SafetyHarnessItem : ModItem, IAbilityAccessoryItem {
+	public class SafetyHarnessItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -102,7 +102,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantSafetyHarnessChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantSafetyHarnessChance;
 		}
 	}
 }

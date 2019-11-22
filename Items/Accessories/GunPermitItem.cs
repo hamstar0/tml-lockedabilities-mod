@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class GunPermitItem : ModItem, IAbilityAccessoryItem {
+	public class GunPermitItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -57,7 +57,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantGunPermitChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantGunPermitChance;
 		}
 	}
 }

@@ -3,8 +3,8 @@ using HamstarHelpers.Classes.Errors;
 using HamstarHelpers.Helpers.DotNET;
 using HamstarHelpers.Helpers.Tiles;
 using HamstarHelpers.Helpers.TModLoader;
-using LockedAbilities.Items;
 using LockedAbilities.Items.Accessories;
+using LockedAbilities.Items.Consumable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +32,7 @@ namespace LockedAbilities {
 				yield return ( item5, item5.WorldGenChestWeight(chest) );
 				yield return ( item6, item6.WorldGenChestWeight(chest) );
 				yield return ( item7, item7.WorldGenChestWeight(chest) );
-				yield return ( item8, LockedAbilitiesMod.Config.WorldGenChestImplantDarkHeartPieceChance );
+				yield return ( item8,  LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance );
 			}
 
 			UnifiedRandom rand = TmlHelpers.SafelyGetRand();

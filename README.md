@@ -10,6 +10,8 @@ Locked abilities (at start):
 - Protections
 - "Heavy" armor
 - Protection equipment
-- Added accessory slots
+- Accessory slots (all but 1)
+
+Configurable.
 
 https://forums.terraria.org/index.php?threads/locked-abilities-primary-player-abilities-are-now-sealed-away-including-accessory-slots.82662/

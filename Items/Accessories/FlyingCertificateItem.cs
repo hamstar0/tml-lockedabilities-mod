@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class FlyingCertificateItem : ModItem, IAbilityAccessoryItem {
+	public class FlyingCertificateItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -66,7 +66,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantFlyingCertificateChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantFlyingCertificateChance;
 		}
 	}
 }

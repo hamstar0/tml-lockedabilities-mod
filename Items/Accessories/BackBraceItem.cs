@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Items.Accessories {
-	class BackBraceItem : ModItem, IAbilityAccessoryItem {
+	public class BackBraceItem : ModItem, IAbilityAccessoryItem {
 		public static int Width = 22;
 		public static int Height = 18;
 
@@ -59,7 +59,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesMod.Config.WorldGenChestImplantBackBraceChance;
+			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantBackBraceChance;
 		}
 	}
 }

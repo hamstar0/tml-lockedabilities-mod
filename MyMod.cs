@@ -10,8 +10,6 @@ namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public static LockedAbilitiesMod Instance { get; private set; }
 
-		public static LockedAbilitiesConfig Config => ModContent.GetInstance<LockedAbilitiesConfig>();
-
 
 
 		////////////////

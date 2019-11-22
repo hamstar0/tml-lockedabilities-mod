@@ -6,8 +6,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class DarkHeartItem : ModItem {
+namespace LockedAbilities.Items.Consumable {
+	public class DarkHeartItem : ModItem {
 		public const int Width = 24;
 		public const int Height = 24;
 
@@ -73,14 +73,14 @@ namespace LockedAbilities.Items {
 	class DarkHeartItemRecipe : ModRecipe {
 		public DarkHeartItemRecipe( DarkHeartItem myitem ) : base( myitem.mod ) {
 			this.AddTile( TileID.DemonAltar );
-			this.AddIngredient( ModContent.GetInstance<DarkHeartPieceItem>(), LockedAbilitiesMod.Config.DarkHeartPiecesPerDarkHeart );
+			this.AddIngredient( ModContent.GetInstance<DarkHeartPieceItem>(),  LockedAbilitiesConfig.Instance.DarkHeartPiecesPerDarkHeart );
 
 			this.SetResult( myitem, 1 );
 		}
 
 
 		public override bool RecipeAvailable() {
-			return LockedAbilitiesMod.Config.DarkHeartPiecesPerDarkHeart > 0;
+			return  LockedAbilitiesConfig.Instance.DarkHeartPiecesPerDarkHeart > 0;
 		}
 	}
 }

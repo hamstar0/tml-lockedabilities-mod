@@ -3,8 +3,8 @@ using Terraria;
 using Terraria.ModLoader;
 
 
-namespace LockedAbilities.Items {
-	class DarkHeartPieceItem : ModItem {
+namespace LockedAbilities.Items.Consumable {
+	public class DarkHeartPieceItem : ModItem {
 		public const int Width = 18;
 		public const int Height = 18;
 
