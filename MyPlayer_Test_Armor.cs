@@ -62,6 +62,10 @@ namespace LockedAbilities {
 		////
 
 		private void TestArmorSlotCapacity() {
+			if( this.TotalAllowedAccessorySlots < 0 ) {
+				return;
+			}
+
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 

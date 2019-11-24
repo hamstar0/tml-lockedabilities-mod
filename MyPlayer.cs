@@ -66,6 +66,11 @@ namespace LockedAbilities {
 		////
 
 		private void UpdateMaxAllowedAccessorySlots( Item item ) {
+			if( this.InternalAllowedAccessorySlots == -1 ) {
+				this.TotalAllowedAccessorySlots = -1;
+				return;
+			}
+
 			var abilityItem = (IAbilityAccessoryItem)item.modItem;
 
 			int? addedAccSlots = abilityItem.GetAddedAccessorySlots( this.player );
@@ -81,6 +86,10 @@ namespace LockedAbilities {
 		////////////////
 
 		public void IncreaseAllowedAccessorySlots() {
+			if( this.InternalAllowedAccessorySlots < 0 ) {
+				return;
+			}
+
 			this.InternalAllowedAccessorySlots += 1;
 			this.TotalAllowedAccessorySlots += 1;
 		}

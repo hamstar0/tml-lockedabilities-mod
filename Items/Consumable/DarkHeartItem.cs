@@ -48,7 +48,8 @@ namespace LockedAbilities.Items.Consumable {
 		public override bool ConsumeItem( Player player ) {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( player );
 			int vanillaMaxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( player );
-			bool canIncreaseAccSlots = myplayer.InternalAllowedAccessorySlots < vanillaMaxAcc;
+			bool canIncreaseAccSlots = myplayer.InternalAllowedAccessorySlots >= 0
+				&& myplayer.InternalAllowedAccessorySlots < vanillaMaxAcc;
 
 			if( canIncreaseAccSlots ) {
 				myplayer.IncreaseAllowedAccessorySlots();

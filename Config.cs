@@ -25,7 +25,7 @@ namespace LockedAbilities {
 
 		[Tooltip( "Starting amount of available accessory slots" )]
 		[Slider()]
-		[Range( 0, 20 )]
+		[Range( -1, 20 )]
 		[DefaultValue( 1 )]
 		public int InitialAccessorySlots { get; set; } = 1;
 
@@ -37,7 +37,7 @@ namespace LockedAbilities {
 		[DefaultValue( 0.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float WorldGenChestImplantChance { get; set; } = 0.5f;
-
+		
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
@@ -57,7 +57,7 @@ namespace LockedAbilities {
 		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float WorldGenChestImplantGrappleHarnessChance { get; set; } = 1f;
-
+		
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
@@ -67,7 +67,7 @@ namespace LockedAbilities {
 		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float WorldGenChestImplantMountReinChance { get; set; } = 1f;
-
+		
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
@@ -86,5 +86,24 @@ namespace LockedAbilities {
 		[Range( 0, 99 )]
 		[DefaultValue( 4 )]
 		public int DarkHeartPiecesPerDarkHeart { get; set; } = 4;
+
+
+
+		////////////////
+
+		public void Clear() {
+			this.InitialAccessorySlots = -1;
+			this.WorldGenChestImplantChance = 0f;
+			this.WorldGenChestImplantBackBraceChance = 0f;
+			this.WorldGenChestImplantBootLacesChance = 0f;
+			this.WorldGenChestImplantFlyingCertificateChance = 0f;
+			this.WorldGenChestImplantGrappleHarnessChance = 0f;
+			this.WorldGenChestImplantGunPermitChance = 0f;
+			this.WorldGenChestImplantMountReinChance = 0f;
+			this.WorldGenChestImplantSafetyHarnessChance = 0f;
+			this.WorldGenChestImplantDarkHeartPieceChance = 0f;
+			this.IsBackBraceItemFindable = false;
+			this.DarkHeartPiecesPerDarkHeart = 0;
+		}
 	}
 }

@@ -32,7 +32,9 @@ namespace LockedAbilities {
 				yield return ( item5, item5.WorldGenChestWeight(chest) );
 				yield return ( item6, item6.WorldGenChestWeight(chest) );
 				yield return ( item7, item7.WorldGenChestWeight(chest) );
-				yield return ( item8,  LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance );
+				if( LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance > 0 ) {
+					yield return ( item8, LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance );
+				}
 			}
 
 			UnifiedRandom rand = TmlHelpers.SafelyGetRand();

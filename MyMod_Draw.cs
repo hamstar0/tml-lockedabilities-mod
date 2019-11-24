@@ -18,6 +18,10 @@ namespace LockedAbilities {
 
 		private void DrawAccessoryOverlays( SpriteBatch sb ) {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
+			if( myplayer.TotalAllowedAccessorySlots < 0 ) {
+				return;
+			}
+
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
 			int myMaxAcc = myplayer.TotalAllowedAccessorySlots;
