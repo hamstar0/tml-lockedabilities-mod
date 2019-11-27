@@ -39,6 +39,10 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.BootLacesEnabled ) {
+				return false;
+			}
+
 			if( item.shoeSlot != -1 && item.accessory && !item.vanity ) {
 				if( item.handOnSlot == -1 && item.handOffSlot == -1 && item.waistSlot == -1 ) {
 					return true;
@@ -58,7 +62,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantBootLacesChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantBootLacesChance;
 		}
 	}
 }

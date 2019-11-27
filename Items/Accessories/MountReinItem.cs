@@ -43,6 +43,10 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+				return false;
+			}
+
 			if( item.mountType >= 0 ) {
 				return true;
 			}
@@ -56,7 +60,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantMountReinChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantMountReinChance;
 		}
 	}
 }

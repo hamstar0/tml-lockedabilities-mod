@@ -26,13 +26,37 @@ namespace LockedAbilities {
 		[Tooltip( "Starting amount of available accessory slots" )]
 		[Slider()]
 		[Range( -1, 20 )]
-		[DefaultValue( 1 )]
-		public int InitialAccessorySlots { get; set; } = 1;
+		[DefaultValue( 2 )]
+		public int InitialAccessorySlots { get; set; } = 2;
 
 
 		////
 
-		[Tooltip( "Ability item % chance in world gen chest" )]
+		[DefaultValue( true )]
+		public bool BackBraceEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool BootLacesEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool FlyingCertificateEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool GrappleHarnessEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool GunPermitEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool MountReinEnabled { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool SafetyHarnessEnabled { get; set; } = true;
+
+
+		////
+
+		[Header( "Ability item % chance in world gen chest" )]
 		[Range( 0f, 1f )]
 		[DefaultValue( 0.5f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
@@ -80,9 +104,6 @@ namespace LockedAbilities {
 
 		////
 
-		[DefaultValue( true )]
-		public bool IsBackBraceItemFindable { get; set; } = true;
-
 		[Range( 0, 99 )]
 		[DefaultValue( 4 )]
 		public int DarkHeartPiecesPerDarkHeart { get; set; } = 4;
@@ -102,7 +123,6 @@ namespace LockedAbilities {
 			this.WorldGenChestImplantMountReinChance = 0f;
 			this.WorldGenChestImplantSafetyHarnessChance = 0f;
 			this.WorldGenChestImplantDarkHeartPieceChance = 0f;
-			this.IsBackBraceItemFindable = false;
 			this.DarkHeartPiecesPerDarkHeart = 0;
 		}
 	}

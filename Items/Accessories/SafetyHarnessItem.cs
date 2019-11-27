@@ -41,6 +41,10 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.SafetyHarnessEnabled ) {
+				return false;
+			}
+
 			switch( item.type ) {
 			case ItemID.AdhesiveBandage:
 			case ItemID.AnkhCharm:
@@ -102,7 +106,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantSafetyHarnessChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantSafetyHarnessChance;
 		}
 	}
 }

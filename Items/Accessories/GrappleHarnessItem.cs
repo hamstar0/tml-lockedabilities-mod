@@ -44,6 +44,10 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
+				return false;
+			}
+
 			if( ItemAttributeHelpers.IsGrapple( item ) ) {
 				return true;
 			}
@@ -57,7 +61,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantGrappleHarnessChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantGrappleHarnessChance;
 		}
 	}
 }

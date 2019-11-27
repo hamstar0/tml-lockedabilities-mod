@@ -40,6 +40,10 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.FlyingCertificateEnabled ) {
+				return false;
+			}
+
 			if( item.accessory && !item.vanity ) {
 				if( item.wingSlot != -1 ) {
 					return true;
@@ -66,7 +70,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantFlyingCertificateChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantFlyingCertificateChance;
 		}
 	}
 }

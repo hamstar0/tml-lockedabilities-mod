@@ -40,6 +40,10 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.BackBraceEnabled ) {
+				return false;
+			}
+
 			if( slot >= 0 && slot < PlayerItemHelpers.VanillaAccessorySlotFirst ) {
 				if( item.defense >= 4 ) {
 					return true;
@@ -59,7 +63,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantBackBraceChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantBackBraceChance;
 		}
 	}
 }

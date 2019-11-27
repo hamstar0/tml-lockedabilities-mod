@@ -48,6 +48,10 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool IsEquipItemAnAbility( Player player, Item item ) {
+			if( !LockedAbilitiesConfig.Instance.GunPermitEnabled ) {
+				return false;
+			}
+
 			if( item.ranged && item.useAmmo == AmmoID.Bullet ) {
 				return true;
 			}
@@ -57,7 +61,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return  LockedAbilitiesConfig.Instance.WorldGenChestImplantGunPermitChance;
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantGunPermitChance;
 		}
 	}
 }
