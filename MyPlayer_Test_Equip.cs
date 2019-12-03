@@ -33,7 +33,7 @@ namespace LockedAbilities {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemTemplates ) {
+			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemSingletons ) {
 				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
 					continue;
 				}

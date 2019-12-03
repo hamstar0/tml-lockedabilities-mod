@@ -81,7 +81,7 @@ namespace LockedAbilities {
 					throw new ModHelpersException( "Could not pick random item for chest" );
 				}
 
-				for( int i=chest.item.Length; i>0; i-- ) {
+				for( int i=chest.item.Length-1; i>0; i-- ) {
 					chest.item[i] = chest.item[i-1];
 				}
 				chest.item[0] = new Item();

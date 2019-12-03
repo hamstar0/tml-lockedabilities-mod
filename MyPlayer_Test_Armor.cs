@@ -1,11 +1,11 @@
 using HamstarHelpers.Helpers.Players;
+using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.DotNET.Extensions;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using HamstarHelpers.Helpers.Debug;
 
 
 namespace LockedAbilities {
@@ -30,7 +30,7 @@ namespace LockedAbilities {
 				}
 			}
 
-			this.TestArmorSlotCapacity();
+			this.TestAccessorySlotCapacity();
 		}
 
 
@@ -40,16 +40,17 @@ namespace LockedAbilities {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemTemplates ) {
-				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
+			foreach( (Type neededAbilityItemType, IAbilityAccessoryItem neededAbilityDef) in mymod.AbilityItemSingletons ) {
+				// Ignore ability enabling items themselves
+				if( equippedAbilityItemTypes.Contains( neededAbilityItemType ) ) {
 					continue;
 				}
 
-				var missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
+				var neededAbilityModItem = (ModItem)neededAbilityDef;
 				Item testItem = this.player.armor[slot];
 
-				if( missingAbilityItemTemplate.IsArmorItemAnAbility( this.player, slot, testItem) ) {
-					alert = "Need " + missingAbilityModItem.item.HoverName + " to equip.";
+				if( neededAbilityDef.IsArmorItemAnAbility( this.player, slot, testItem) ) {
+					alert = "Need " + neededAbilityModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}
@@ -61,7 +62,7 @@ namespace LockedAbilities {
 
 		////
 
-		private void TestArmorSlotCapacity() {
+		private void TestAccessorySlotCapacity() {
 			if( this.TotalAllowedAccessorySlots < 0 ) {
 				return;
 			}
