@@ -27,5 +27,12 @@ namespace LockedAbilities.Items.Consumable {
 			this.item.value = Item.buyPrice( 0, 2, 50, 0 );
 			this.item.rare = 3;
 		}
+
+
+		////////////////
+
+		public float WorldGenChestWeight( Chest chest ) {
+			return LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance;
+		}
 	}
 }

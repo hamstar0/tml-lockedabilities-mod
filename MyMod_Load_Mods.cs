@@ -1,5 +1,6 @@
 using ChestImplants;
 using HamstarHelpers.Classes.Errors;
+using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.DotNET;
 using HamstarHelpers.Helpers.Tiles;
 using HamstarHelpers.Helpers.TModLoader;
@@ -33,7 +34,7 @@ namespace LockedAbilities {
 				yield return ( item6, item6.WorldGenChestWeight(chest) );
 				yield return ( item7, item7.WorldGenChestWeight(chest) );
 				if( LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance > 0 ) {
-					yield return ( item8, LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance );
+					yield return ( item8, item8.WorldGenChestWeight(chest) );
 				}
 			}
 
@@ -63,8 +64,9 @@ namespace LockedAbilities {
 			ChestImplantsAPI.AddCustomImplanter( ( context, chest ) => {
 				bool isLocked = false;
 				Tile mytile = Main.tile[chest.x, chest.y];
+
 				string currentChestType;
-				if( !TileFrameHelpers.VanillaChestTypeNamesByFrame.TryGetValue( mytile.frameX / 36, out currentChestType ) ) {
+				if( !TileFrameHelpers.VanillaChestTypeNamesByFrame.TryGetValue(mytile.frameX / 36, out currentChestType) ) {
 					throw new ModHelpersException( "Could not find chest frame" );
 				}
 
@@ -74,6 +76,11 @@ namespace LockedAbilities {
 					if( currentChestType == "Locked Shadow Chest" ) {
 						isLocked = true;
 					}
+				}
+
+				UnifiedRandom rand = TmlHelpers.SafelyGetRand();
+				if( rand.NextFloat() > LockedAbilitiesConfig.Instance.WorldGenChestImplantChance ) {
+					return;
 				}
 
 				int randItemType = LockedAbilitiesMod.GetRandomAccessoryForLocation( chest, isLocked );

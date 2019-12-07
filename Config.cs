@@ -58,9 +58,9 @@ namespace LockedAbilities {
 
 		[Header( "Ability item % chance in world gen chest" )]
 		[Range( 0f, 1f )]
-		[DefaultValue( 0.5f )]
+		[DefaultValue( 0.25f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
-		public float WorldGenChestImplantChance { get; set; } = 0.5f;
+		public float WorldGenChestImplantChance { get; set; } = 0.25f;
 		
 		[Range( 0f, 1f )]
 		[DefaultValue( 1f )]
