@@ -16,7 +16,7 @@ namespace LockedAbilities.Items.Accessories {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			mymod.AddAbility( this );
 
-			this.DisplayName.SetDefault( "Saddle Harness" );
+			this.DisplayName.SetDefault( "Mount Rein" );
 			this.Tooltip.SetDefault( "Allows mounts" );
 		}
 

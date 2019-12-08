@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Players;
 using Terraria.ModLoader.IO;
+using LockedAbilities.Items.Accessories;
 
 
 namespace LockedAbilities {
@@ -39,12 +40,15 @@ namespace LockedAbilities {
 			};
 		}
 
+
 		////////////////
 
 		public override void PreUpdate() {
 			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
+
+			this.UpdateMountState();
 
 			// Find equipped ability items
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
@@ -64,6 +68,29 @@ namespace LockedAbilities {
 		}
 
 		////
+
+		private void UpdateMountState() {
+			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+				return;
+			}
+
+			if( this.player.mount.Active ) {
+				int mountReinType = ModContent.ItemType<MountReinItem>();
+				int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+				int lastAccSlot = PlayerItemHelpers.GetFirstVanitySlot( player );
+
+				for( int i = firstAccSlot; i < lastAccSlot; i++ ) {
+					Item item = player.armor[i];
+					if( item?.active != true || item.type != mountReinType ) {
+						continue;
+					}
+
+					return;
+				}
+
+				this.player.mount.Dismount( this.player );
+			}
+		}
 
 		private void UpdateMaxAllowedAccessorySlots( Item item ) {
 			if( this.InternalAllowedAccessorySlots == -1 ) {
