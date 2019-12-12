@@ -48,7 +48,7 @@ namespace LockedAbilities {
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
 
-			this.UpdateMountState();
+			this.TestMountState();
 
 			// Find equipped ability items
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
@@ -57,7 +57,7 @@ namespace LockedAbilities {
 					continue;
 				}
 
-				this.UpdateMaxAllowedAccessorySlots( item );
+				this.TestMaxAllowedAccessorySlots( item );
 
 				equippedAbilityItemTypes.Add( item.modItem.GetType() );
 			}
@@ -65,60 +65,6 @@ namespace LockedAbilities {
 			this.TestArmorSlots( equippedAbilityItemTypes );
 			this.TestMiscSlots( equippedAbilityItemTypes );
 			this.TestEquippedItem( equippedAbilityItemTypes );
-		}
-
-		////
-
-		private void UpdateMountState() {
-			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
-				return;
-			}
-
-			if( this.player.mount.Active ) {
-				int mountReinType = ModContent.ItemType<MountReinItem>();
-				int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-				int lastAccSlot = PlayerItemHelpers.GetFirstVanitySlot( player );
-
-				for( int i = firstAccSlot; i < lastAccSlot; i++ ) {
-					Item item = player.armor[i];
-					if( item?.active != true || item.type != mountReinType ) {
-						continue;
-					}
-
-					return;
-				}
-
-				this.player.mount.Dismount( this.player );
-			}
-		}
-
-		private void UpdateMaxAllowedAccessorySlots( Item item ) {
-			if( this.InternalAllowedAccessorySlots == -1 ) {
-				this.TotalAllowedAccessorySlots = -1;
-				return;
-			}
-
-			var abilityItem = (IAbilityAccessoryItem)item.modItem;
-
-			int? addedAccSlots = abilityItem.GetAddedAccessorySlots( this.player );
-			int testAddedAccSlots = addedAccSlots.HasValue ? addedAccSlots.Value : 0;
-			int testLastAccSlot = testAddedAccSlots + this.InternalAllowedAccessorySlots;
-
-			this.TotalAllowedAccessorySlots = this.TotalAllowedAccessorySlots < testLastAccSlot
-				? testAddedAccSlots
-				: this.TotalAllowedAccessorySlots;
-		}
-
-
-		////////////////
-
-		public void IncreaseAllowedAccessorySlots() {
-			if( this.InternalAllowedAccessorySlots < 0 ) {
-				return;
-			}
-
-			this.InternalAllowedAccessorySlots += 1;
-			this.TotalAllowedAccessorySlots += 1;
 		}
 	}
 }
