@@ -13,7 +13,7 @@ namespace LockedAbilities {
 				return;
 			}
 
-			if( this.player.mount.Active && this.player.mount.Cart ) {
+			if( this.player.mount.Active && !this.player.mount.Cart ) {
 				int mountReinType = ModContent.ItemType<MountReinItem>();
 				int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
 				int lastAccSlot = PlayerItemHelpers.GetFirstVanitySlot( player );
