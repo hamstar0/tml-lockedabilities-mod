@@ -6,8 +6,8 @@ using Terraria.ModLoader;
 
 namespace LockedAbilities.Items.Accessories {
 	public class BackBraceItem : ModItem, IAbilityAccessoryItem {
-		public static int Width = 22;
-		public static int Height = 18;
+		public const int Width = 22;
+		public const int Height = 18;
 
 
 

@@ -14,4 +14,8 @@ Locked abilities (at start):
 
 Configurable.
 
+Credits:
+- Jaserd - Articulation Rigging sprite.
+- GabeHasWon - Gun Permit and Boot Lace sprites.
+
 https://forums.terraria.org/index.php?threads/locked-abilities-primary-player-abilities-are-now-sealed-away-including-accessory-slots.82662/

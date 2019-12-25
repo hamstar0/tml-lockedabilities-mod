@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Terraria;
 using Terraria.ModLoader;
+using LockedAbilities.Recipes;
 
 
 namespace LockedAbilities {
@@ -41,6 +42,14 @@ namespace LockedAbilities {
 
 		public override void Unload() {
 			LockedAbilitiesMod.Instance = null;
+		}
+
+
+		////////////////
+
+		public override void AddRecipes() {
+			var artrigRecipe = new ArticulationRiggingRecipe();
+			artrigRecipe.AddRecipe();
 		}
 
 
