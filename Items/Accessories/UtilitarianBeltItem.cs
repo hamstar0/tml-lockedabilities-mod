@@ -39,11 +39,11 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
-			foreach( (Type abilityType, IAbilityAccessoryItem abilityItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
-				if( abilityType == this.GetType() ) { continue; }
+		public bool EnablesArmorItem( Player player, int slot, Item item ) {
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+				if( abilityEnablingItemType == this.GetType() ) { continue; }
 
-				if( abilityItemSingleton.IsArmorItemEnabled(player, slot, item) ) {
+				if( abilityEnablingItemSingleton.EnablesArmorItem( player, slot, item ) ) {
 					return true;
 				}
 			}
@@ -51,11 +51,11 @@ namespace LockedAbilities.Items.Accessories {
 			return false;
 		}
 
-		public bool IsMiscItemEnabled( Player player, int slot, Item item ) {
-			foreach( (Type abilityType, IAbilityAccessoryItem abilityItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
-				if( abilityType == this.GetType() ) { continue; }
+		public bool EnablesMiscItem( Player player, int slot, Item item ) {
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+				if( abilityEnablingItemType == this.GetType() ) { continue; }
 
-				if( abilityItemSingleton.IsMiscItemEnabled( player, slot, item ) ) {
+				if( abilityEnablingItemSingleton.EnablesMiscItem( player, slot, item ) ) {
 					return true;
 				}
 			}
@@ -63,11 +63,11 @@ namespace LockedAbilities.Items.Accessories {
 			return false;
 		}
 
-		public bool IsEquipItemEnabled( Player player, Item item ) {
-			foreach( (Type abilityType, IAbilityAccessoryItem abilityItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
-				if( abilityType == this.GetType() ) { continue; }
-
-				if( abilityItemSingleton.IsEquipItemEnabled( player, item ) ) {
+		public bool EnablesEquipItem( Player player, Item item ) {
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+				if( abilityEnablingItemType == this.GetType() ) { continue; }
+				
+				if( abilityEnablingItemSingleton.EnablesEquipItem( player, item ) ) {
 					return true;
 				}
 			}

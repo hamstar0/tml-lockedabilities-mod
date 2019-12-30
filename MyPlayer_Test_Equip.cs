@@ -31,20 +31,29 @@ namespace LockedAbilities {
 
 		private bool TestEquipAgainstMissingAbilities( ISet<Type> equippedAbilityEnablingItemTypes, Item testItem, out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
+			bool? isMissing = null;
+			var missingAbilityEnablingModItems = new List<string>();
 
 			// Test each item against missing abilities
-			foreach( (Type missingAbilityEnablingItemType, IAbilityAccessoryItem missingAbilityEnablingItem) in mymod.AbilityItemSingletons ) {
-				// Ignore equipped ability enabling items
-				if( equippedAbilityEnablingItemTypes.Contains( missingAbilityEnablingItemType ) ) {
-					continue;
-				}
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItem) in mymod.AbilityItemSingletons ) {
+				bool isEquipped = equippedAbilityEnablingItemTypes.Contains( abilityEnablingItemType );
 
-				ModItem missingAbilityEnablingModItem = (ModItem)missingAbilityEnablingItem;
+				if( abilityEnablingItem.EnablesEquipItem( this.player, testItem ) ) {
+					if( isEquipped ) {
+						isMissing = false;
+						break;
+					}
 
-				if( missingAbilityEnablingItem.IsEquipItemEnabled( this.player, testItem) ) {
-					alert = "Need " + missingAbilityEnablingModItem.item.HoverName + " to equip.";
-					return false;
+					isMissing = true;
+
+					var abilityEnablingModItem = (ModItem)abilityEnablingItem;
+					missingAbilityEnablingModItems.Add( abilityEnablingModItem.item.Name );
 				}
+			}
+
+			if( isMissing.HasValue && isMissing.Value ) {
+				alert = "Need " + string.Join( " or ", missingAbilityEnablingModItems ) + " to equip.";
+				return false;
 			}
 
 			alert = "";

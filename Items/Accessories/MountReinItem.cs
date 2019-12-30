@@ -38,11 +38,11 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
+		public bool EnablesArmorItem( Player player, int slot, Item item ) {
 			return false;
 		}
 
-		public bool IsMiscItemEnabled( Player player, int slot, Item item ) {
+		public bool EnablesMiscItem( Player player, int slot, Item item ) {
 			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
 				return false;
 			}
@@ -53,7 +53,7 @@ namespace LockedAbilities.Items.Accessories {
 			return false;
 		}
 
-		public bool IsEquipItemEnabled( Player player, Item item ) {
+		public bool EnablesEquipItem( Player player, Item item ) {
 			return false;
 		}
 
