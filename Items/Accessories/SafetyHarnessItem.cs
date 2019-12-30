@@ -40,15 +40,17 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
 			if( !LockedAbilitiesConfig.Instance.SafetyHarnessEnabled ) {
 				return false;
 			}
 
 			switch( item.type ) {
 			case ItemID.AdhesiveBandage:
+			case ItemID.Aglet:
 			case ItemID.AnkhCharm:
 			case ItemID.AnkhShield:
+			case ItemID.AnkletoftheWind:
 			case ItemID.ArmorBracing:
 			case ItemID.ArmorPolish:
 			case ItemID.Bezoar:
@@ -95,11 +97,11 @@ namespace LockedAbilities.Items.Accessories {
 			return false;
 		}
 
-		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+		public bool IsMiscItemEnabled( Player player, int slot, Item item ) {
 			return false;
 		}
 
-		public bool IsEquipItemAnAbility( Player player, Item item ) {
+		public bool IsEquipItemEnabled( Player player, Item item ) {
 			return false;
 		}
 

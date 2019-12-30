@@ -29,19 +29,20 @@ namespace LockedAbilities {
 
 		////
 
-		private bool TestEquipAgainstMissingAbilities( ISet<Type> equippedAbilityItemTypes, Item testItem, out string alert ) {
+		private bool TestEquipAgainstMissingAbilities( ISet<Type> equippedAbilityEnablingItemTypes, Item testItem, out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemSingletons ) {
-				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
+			foreach( (Type missingAbilityEnablingItemType, IAbilityAccessoryItem missingAbilityEnablingItem) in mymod.AbilityItemSingletons ) {
+				// Ignore equipped ability enabling items
+				if( equippedAbilityEnablingItemTypes.Contains( missingAbilityEnablingItemType ) ) {
 					continue;
 				}
 
-				ModItem missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
+				ModItem missingAbilityEnablingModItem = (ModItem)missingAbilityEnablingItem;
 
-				if( missingAbilityItemTemplate.IsEquipItemAnAbility( this.player, testItem) ) {
-					alert = "Need " + missingAbilityModItem.item.HoverName + " to equip.";
+				if( missingAbilityEnablingItem.IsEquipItemEnabled( this.player, testItem) ) {
+					alert = "Need " + missingAbilityEnablingModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}

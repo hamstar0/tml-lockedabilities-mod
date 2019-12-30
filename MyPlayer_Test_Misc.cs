@@ -32,20 +32,21 @@ namespace LockedAbilities {
 
 		////
 
-		private bool TestMiscAgainstMissingAbilities( ISet<Type> equippedAbilityItemTypes, int slot, out string alert ) {
+		private bool TestMiscAgainstMissingAbilities( ISet<Type> equippedAbilityEnablingItemTypes, int slot, out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type missingAbilityItemType, IAbilityAccessoryItem missingAbilityItemTemplate) in mymod.AbilityItemSingletons ) {
-				if( equippedAbilityItemTypes.Contains( missingAbilityItemType ) ) {
+			foreach( (Type missingAbilityEnablingItemType, IAbilityAccessoryItem missingAbilityEnablingItemTemplate) in mymod.AbilityItemSingletons ) {
+				// Ignore equipped ability enabling items
+				if( equippedAbilityEnablingItemTypes.Contains( missingAbilityEnablingItemType ) ) {
 					continue;
 				}
 
-				ModItem missingAbilityModItem = (ModItem)missingAbilityItemTemplate;
+				ModItem missingAbilityEnablingModItem = (ModItem)missingAbilityEnablingItemTemplate;
 				Item testItem = this.player.miscEquips[slot];
 
-				if( missingAbilityItemTemplate.IsMiscItemAnAbility( this.player, slot, testItem) ) {
-					alert = "Need " + missingAbilityModItem.item.HoverName + " to equip.";
+				if( missingAbilityEnablingItemTemplate.IsMiscItemEnabled( this.player, slot, testItem) ) {
+					alert = "Need " + missingAbilityEnablingModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}

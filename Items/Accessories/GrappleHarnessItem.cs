@@ -39,11 +39,11 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public bool IsArmorItemAnAbility( Player player, int slot, Item item ) {
+		public bool IsArmorItemEnabled( Player player, int slot, Item item ) {
 			return false;
 		}
 
-		public bool IsMiscItemAnAbility( Player player, int slot, Item item ) {
+		public bool IsMiscItemEnabled( Player player, int slot, Item item ) {
 			if( !LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
 				return false;
 			}
@@ -54,7 +54,7 @@ namespace LockedAbilities.Items.Accessories {
 			return false;
 		}
 
-		public bool IsEquipItemAnAbility( Player player, Item item ) {
+		public bool IsEquipItemEnabled( Player player, Item item ) {
 			return false;
 		}
 

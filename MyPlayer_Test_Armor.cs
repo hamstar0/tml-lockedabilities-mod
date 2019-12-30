@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		private void TestArmorSlots( ISet<Type> abilityItemTypes ) {
+		private void TestArmorSlots( ISet<Type> equippedAbilityEnablingItemTypes ) {
 			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player )
 					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
 
@@ -23,7 +23,7 @@ namespace LockedAbilities {
 					continue;
 				}
 
-				if( !this.TestArmorAgainstMissingAbilities( abilityItemTypes, slot, out alert ) ) {
+				if( !this.TestArmorAgainstMissingAbilities( equippedAbilityEnablingItemTypes, slot, out alert ) ) {
 					Main.NewText( alert, Color.Yellow );
 					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
 					continue;
@@ -36,21 +36,21 @@ namespace LockedAbilities {
 
 		////
 
-		private bool TestArmorAgainstMissingAbilities( ISet<Type> equippedAbilityItemTypes, int slot, out string alert ) {
+		private bool TestArmorAgainstMissingAbilities( ISet<Type> equippedAbilityEnablingItemTypes, int slot, out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
 
 			// Test each item against missing abilities
-			foreach( (Type neededAbilityItemType, IAbilityAccessoryItem neededAbilityDef) in mymod.AbilityItemSingletons ) {
-				// Ignore ability enabling items themselves
-				if( equippedAbilityItemTypes.Contains( neededAbilityItemType ) ) {
+			foreach( (Type missingAbilityEnablingItemType, IAbilityAccessoryItem missingAbilityEnablingItem) in mymod.AbilityItemSingletons ) {
+				// Ignore equipped ability enabling items
+				if( equippedAbilityEnablingItemTypes.Contains( missingAbilityEnablingItemType ) ) {
 					continue;
 				}
 
-				var neededAbilityModItem = (ModItem)neededAbilityDef;
-				Item testItem = this.player.armor[slot];
+				var missingAbilityEnablingModItem = (ModItem)missingAbilityEnablingItem;
+				Item equippedArmorItem = this.player.armor[slot];
 
-				if( neededAbilityDef.IsArmorItemAnAbility( this.player, slot, testItem) ) {
-					alert = "Need " + neededAbilityModItem.item.HoverName + " to equip.";
+				if( missingAbilityEnablingItem.IsArmorItemEnabled( this.player, slot, equippedArmorItem) ) {
+					alert = "Need " + missingAbilityEnablingModItem.item.HoverName + " to equip.";
 					return false;
 				}
 			}

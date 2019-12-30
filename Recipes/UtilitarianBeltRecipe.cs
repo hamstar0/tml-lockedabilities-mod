@@ -5,8 +5,8 @@ using Terraria.ModLoader;
 
 
 namespace LockedAbilities.Recipes {
-	class ArticulationRiggingRecipe : ModRecipe {
-		public ArticulationRiggingRecipe() : base( LockedAbilitiesMod.Instance ) {
+	class UtilitarianBeltRecipe : ModRecipe {
+		public UtilitarianBeltRecipe() : base( LockedAbilitiesMod.Instance ) {
 			this.AddTile( TileID.TinkerersWorkbench );
 
 			if( LockedAbilitiesConfig.Instance.BackBraceEnabled ) {
@@ -31,7 +31,7 @@ namespace LockedAbilities.Recipes {
 				this.AddIngredient( ModContent.ItemType<SafetyHarnessItem>() );
 			}
 
-			this.SetResult( ModContent.ItemType<ArticulationRiggingItem>() );
+			this.SetResult( ModContent.ItemType<UtilitarianBeltItem>() );
 		}
 
 

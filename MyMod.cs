@@ -48,8 +48,8 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void AddRecipes() {
-			var artrigRecipe = new ArticulationRiggingRecipe();
-			artrigRecipe.AddRecipe();
+			var utBeltRecipe = new UtilitarianBeltRecipe();
+			utBeltRecipe.AddRecipe();
 		}
 
 
