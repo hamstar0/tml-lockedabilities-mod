@@ -1,29 +1,31 @@
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.DotNET.Extensions;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
+using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Helpers.Players;
+using HamstarHelpers.Helpers.DotNET.Extensions;
 
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		private void TestEquippedItem( ISet<Type> abilityItemTypes ) {
-			string alert;
-
-			// Test each item against equipped ability items
-			Item item = this.player.inventory[ PlayerItemHelpers.VanillaInventorySelectedSlot ];
+		private bool TestEquipItem( ISet<Type> abilityItemTypes, Item item ) {
 			if( item == null || item.IsAir ) {
-				return;
+				return true;
 			}
 
+			string alert;
+
+			// Test equipped item against equipped ability items
 			if( !this.TestEquipAgainstMissingAbilities( abilityItemTypes, item, out alert) ) {
 				Main.NewText( alert, Color.Yellow );
 				PlayerItemHelpers.DropInventoryItem( this.player, PlayerItemHelpers.VanillaInventorySelectedSlot );
 				Main.mouseItem = new Item();
-				return;
+				return false;
 			}
+			
+			return true;
 		}
 
 
