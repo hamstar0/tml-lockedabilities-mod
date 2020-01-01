@@ -57,6 +57,16 @@ namespace LockedAbilities {
 		public bool ArticulationRiggingEnabled { get; set; } = true;
 
 
+		[DefaultValue( true )]
+		public bool DoubleJumpsRequireGels { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool RocketBootsRequireGels { get; set; } = true;
+
+		[DefaultValue( true )]
+		public bool WingsRequirePixieDust { get; set; } = true;
+
+
 		////
 
 		[Header( "Ability item % chance in world gen chest" )]

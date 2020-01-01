@@ -41,10 +41,10 @@ namespace LockedAbilities.Items.Accessories {
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
 			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
-				if( abilityEnablingItemType == this.GetType() ) { continue; }
-
-				if( abilityEnablingItemSingleton.EnablesArmorItem( player, slot, item ) ) {
-					return true;
+				if( abilityEnablingItemType != this.GetType() ) {
+					if( abilityEnablingItemSingleton.EnablesArmorItem( player, slot, item ) ) {
+						return true;
+					}
 				}
 			}
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
@@ -10,8 +11,21 @@ using HamstarHelpers.Services.Timers;
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
+		private bool HasBlizzardJumped = false;
+		private bool HasCloudJumped = false;
+		private bool HasFartJumped = false;
+		private bool HasSailJumped = false;
+		private bool HasSandstormJumped = false;
+		private bool HasRocketChecked = false;
+		private bool HasWingsChecked = false;
+
+
+		////////////////
+
 		public int InternalAllowedAccessorySlots { get; private set; } = 1;
 		public int TotalAllowedAccessorySlots { get; private set; } = 1;
+
+		////
 
 		public override bool CloneNewInstances => false;
 
@@ -53,7 +67,7 @@ namespace LockedAbilities {
 			// Find equipped ability items
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
 				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
+				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
 					continue;
 				}
 
@@ -64,7 +78,14 @@ namespace LockedAbilities {
 
 			this.TestArmorSlots( equippedAbilityItemTypes );
 			this.TestMiscSlots( equippedAbilityItemTypes );
+
+			if( !this.player.dead ) {
+				this.UpdateVerticalMovement( this.player.velocity.Y == 0 && !this.player.HasBuff(BuffID.Webbed) );
+			}
 		}
+
+
+		////////////////
 
 
 		public override bool PreItemCheck() {

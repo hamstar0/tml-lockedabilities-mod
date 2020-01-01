@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.DotNET.Extensions;
 
 
 namespace LockedAbilities.Items.Accessories {
@@ -53,7 +54,14 @@ namespace LockedAbilities.Items.Accessories {
 				case ItemID.SpectreBoots:
 				case ItemID.LightningBoots:
 				case ItemID.FrostsparkBoots:
-					return true;
+					foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+						if( abilityEnablingItemType != this.GetType() ) {
+							if( abilityEnablingItemSingleton.EnablesArmorItem( player, slot, item ) ) {
+								return true;
+							}
+						}
+					}
+					return false;
 				}
 			}
 			return false;
