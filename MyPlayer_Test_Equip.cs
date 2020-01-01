@@ -18,10 +18,10 @@ namespace LockedAbilities {
 			string alert;
 
 			// Test equipped item against equipped ability items
-			if( !this.TestEquipAgainstMissingAbilities( abilityItemTypes, item, out alert) ) {
+			if( !this.TestEquipAgainstMissingAbilities(abilityItemTypes, item, out alert) ) {
 				Main.NewText( alert, Color.Yellow );
-				PlayerItemHelpers.DropInventoryItem( this.player, PlayerItemHelpers.VanillaInventorySelectedSlot );
-				Main.mouseItem = new Item();
+				//PlayerItemHelpers.DropInventoryItem( this.player, PlayerItemHelpers.VanillaInventorySelectedSlot );
+				//Main.mouseItem = new Item();
 				return false;
 			}
 			
@@ -54,7 +54,7 @@ namespace LockedAbilities {
 			}
 
 			if( isMissing.HasValue && isMissing.Value ) {
-				alert = "Need " + string.Join( " or ", missingAbilityEnablingModItems ) + " to equip.";
+				alert = "Need " + string.Join( " or ", missingAbilityEnablingModItems ) + " to wield.";
 				return false;
 			}
 
