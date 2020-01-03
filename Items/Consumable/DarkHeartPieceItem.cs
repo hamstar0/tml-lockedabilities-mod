@@ -22,7 +22,6 @@ namespace LockedAbilities.Items.Consumable {
 		public override void SetDefaults() {
 			this.item.width = DarkHeartPieceItem.Width;
 			this.item.height = DarkHeartPieceItem.Height;
-			this.item.consumable = true;
 			this.item.maxStack = 30;
 			this.item.value = Item.buyPrice( 0, 2, 50, 0 );
 			this.item.rare = 3;
