@@ -17,4 +17,4 @@ Configurable.
 Credits:
 - GabeHasWon - Gun Permit and Boot Lace sprites.
 
-https://forums.terraria.org/index.php?threads/locked-abilities-primary-player-abilities-are-now-sealed-away-including-accessory-slots.82662/
+https://forums.terraria.org/index.php?threads/locked-abilities.82662/

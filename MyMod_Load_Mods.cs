@@ -61,7 +61,7 @@ namespace LockedAbilities {
 		////////////////
 
 		private void LoadChestImplantMod() {
-			ChestImplantsAPI.AddCustomImplanter( ( context, chest ) => {
+			ChestImplantsAPI.AddCustomImplanter( "LockedAbilities", ( context, chest ) => {
 				bool isLocked = false;
 				Tile mytile = Main.tile[chest.x, chest.y];
 
