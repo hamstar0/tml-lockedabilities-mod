@@ -38,5 +38,16 @@ namespace LockedAbilities {
 			this.InternalAllowedAccessorySlots += 1;
 			this.TotalAllowedAccessorySlots += 1;
 		}
+
+		public void SetAllowedAccessorySlots( int slots ) {
+			if( this.InternalAllowedAccessorySlots < 0 ) {
+				return;
+			}
+
+			int oldInternalAmt = this.InternalAllowedAccessorySlots;
+
+			this.InternalAllowedAccessorySlots = slots;
+			this.TotalAllowedAccessorySlots = (this.TotalAllowedAccessorySlots - oldInternalAmt) + slots;
+		}
 	}
 }

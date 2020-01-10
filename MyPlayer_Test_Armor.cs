@@ -69,7 +69,7 @@ namespace LockedAbilities {
 		}
 
 
-		////
+		////////////////
 
 		private void TestAccessorySlotCapacity() {
 			if( this.TotalAllowedAccessorySlots < 0 ) {

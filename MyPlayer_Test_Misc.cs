@@ -23,7 +23,7 @@ namespace LockedAbilities {
 
 				if( !this.TestMiscAgainstMissingAbilities( abilityItemTypes, slot, out alert) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedMiscItem( this.player, slot );
+					PlayerItemHelpers.DropEquippedMiscItem( this.player, slot, 0 );
 					continue;
 				}
 			}

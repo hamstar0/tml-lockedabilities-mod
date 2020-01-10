@@ -7,6 +7,7 @@ using Terraria.ModLoader.IO;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Players;
 using HamstarHelpers.Services.Timers;
+using LockedAbilities.Protocols;
 
 
 namespace LockedAbilities {
@@ -34,12 +35,12 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void Initialize() {
-			this.InternalAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			this.InternalAllowedAccessorySlots = LockedAbilitiesConfig.Instance.InitialAccessorySlots;
 			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 		}
 
 		public override void Load( TagCompound tag ) {
-			this.InternalAllowedAccessorySlots =  LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			this.InternalAllowedAccessorySlots = LockedAbilitiesConfig.Instance.InitialAccessorySlots;
 			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 
 			if( tag.ContainsKey("highest_acc_slots") ) {
@@ -52,6 +53,14 @@ namespace LockedAbilities {
 			return new TagCompound {
 				{ "highest_acc_slots", this.InternalAllowedAccessorySlots }
 			};
+		}
+
+		////////////////
+
+		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
+			if( newPlayer ) {
+				PlayerDarkHeartsProtocol.Sync( fromWho, this.InternalAllowedAccessorySlots );
+			}
 		}
 
 
