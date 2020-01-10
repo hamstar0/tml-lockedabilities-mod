@@ -39,7 +39,7 @@ namespace LockedAbilities {
 				case ItemID.FartinaJar:
 				case ItemID.BalloonHorseshoeFart:
 				case ItemID.TsunamiInABottle:
-					if( LockedAbilitiesConfig.Instance.WingsRequirePixieDust ) {
+					if( LockedAbilitiesConfig.Instance.DoubleJumpsRequireGels ) {
 						tip = new TooltipLine( this.mod, "LockedAbiltiesJumpFuel", "Double jump items require gels to use." );
 						tip.overrideColor = Color.Yellow;
 						tooltips.Add( tip );
