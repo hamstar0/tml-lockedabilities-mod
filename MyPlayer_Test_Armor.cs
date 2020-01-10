@@ -25,7 +25,7 @@ namespace LockedAbilities {
 
 				if( !this.TestArmorAgainstMissingAbilities( equippedAbilityEnablingItemTypes, slot, out alert ) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
+					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot, 0 );
 					continue;
 				}
 			}
@@ -87,7 +87,7 @@ namespace LockedAbilities {
 				}
 
 				Main.NewText( "Invalid accessory slot.", Color.Yellow );
-				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot );
+				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot, 0 );
 				break;
 			}
 		}
