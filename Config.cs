@@ -66,6 +66,10 @@ namespace LockedAbilities {
 		[DefaultValue( true )]
 		public bool WingsRequirePixieDust { get; set; } = true;
 
+		[Range( 0, 100 )]
+		[DefaultValue( 0 )]
+		public int GrappleRequiresChainAmount { get; set; } = 0;
+
 
 		////
 
