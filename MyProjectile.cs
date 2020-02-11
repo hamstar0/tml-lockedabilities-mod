@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Items;
 using HamstarHelpers.Helpers.Players;
 using LockedAbilities.Items.Accessories;
+using HamstarHelpers.Helpers.Debug;
 
 
 namespace LockedAbilities {
@@ -40,7 +41,7 @@ namespace LockedAbilities {
 
 				return true;
 			}
-
+			
 			return false;
 		}
 

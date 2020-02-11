@@ -58,8 +58,16 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
-			if( newPlayer ) {
-				PlayerDarkHeartsProtocol.Sync( fromWho, this.InternalAllowedAccessorySlots );
+			if( Main.netMode == 1 ) {
+				if( toWho == -1 && fromWho == -1 && newPlayer ) {
+					//this.OnCurrentClientConnect();
+					PlayerDarkHeartsProtocol.Sync( Main.myPlayer, this.InternalAllowedAccessorySlots );
+				}
+			}
+			if( Main.netMode == 2 ) {
+				if( toWho == -1 && fromWho == this.player.whoAmI ) {
+					//this.OnServerConnect( Main.player[fromWho] );
+				}
 			}
 		}
 
