@@ -1,0 +1,14 @@
+v1
+-	Safety Harness: Enables equipping protection items
+-	Back Brace: Enables heavy armor
+-	Flying Certificate: Enables flight items
+-	Gun Permit: Enables guns
+-	Grapple Harness: Enables grappling items
+-	Saddle Harness: Enables mounts
+-	Boot Laces: Enables shoe accessories
+-	Profician Accessory: +5 added accessory slots (does not stack)
+-	Versatilian Accessory: +4 added accessory slots (does not stack)
+-	Utilitarian Accessory: +3 added accessory slots (does not stack)
+-	Accessory Accessory: +2 added accessory slots (does not stack)
+-	Cap accessory slots
+-	Setup project

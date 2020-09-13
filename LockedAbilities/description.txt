@@ -11,3 +11,7 @@ Locked abilities:
 - Accessory slots (all but 1)
 
 Configurable.
+
+
+
+Sprite credits: GabeHasWon, imposter
