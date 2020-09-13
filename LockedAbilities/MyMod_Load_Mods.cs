@@ -1,4 +1,9 @@
-using ChestImplants;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.Utilities;
 using HamstarHelpers.Classes.Errors;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.DotNET;
@@ -6,17 +11,14 @@ using HamstarHelpers.Helpers.Tiles;
 using HamstarHelpers.Helpers.TModLoader;
 using LockedAbilities.Items.Accessories;
 using LockedAbilities.Items.Consumable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.Utilities;
+using ChestImplants;
 
 
 namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
 		public static int GetRandomAccessoryForLocation( Chest chest, bool isLocked ) {
+			var config = LockedAbilitiesConfig.Instance;
+
 			IEnumerable<(ModItem myitem, float chance)> getWeight() {
 				var item1 = ModContent.GetInstance<BackBraceItem>();
 				var item2 = ModContent.GetInstance<BootLacesItem>();
@@ -33,7 +35,8 @@ namespace LockedAbilities {
 				yield return ( item5, item5.WorldGenChestWeight(chest) );
 				yield return ( item6, item6.WorldGenChestWeight(chest) );
 				yield return ( item7, item7.WorldGenChestWeight(chest) );
-				if( LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance > 0 ) {
+
+				if( config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantDarkHeartPieceChance) ) > 0 ) {
 					yield return ( item8, item8.WorldGenChestWeight(chest) );
 				}
 			}
@@ -78,8 +81,10 @@ namespace LockedAbilities {
 					}
 				}
 
+				var config = LockedAbilitiesConfig.Instance;
 				UnifiedRandom rand = TmlHelpers.SafelyGetRand();
-				if( rand.NextFloat() > LockedAbilitiesConfig.Instance.WorldGenChestImplantChance ) {
+				float implantChance = config.Get<float>( nameof( LockedAbilitiesConfig.WorldGenChestImplantChance ) );
+				if( rand.NextFloat() > implantChance ) {
 					return;
 				}
 

@@ -35,12 +35,14 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void Initialize() {
-			this.InternalAllowedAccessorySlots = LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			var config = LockedAbilitiesConfig.Instance;
+			this.InternalAllowedAccessorySlots = config.Get<int>( nameof(LockedAbilitiesConfig.InitialAccessorySlots) );
 			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 		}
 
 		public override void Load( TagCompound tag ) {
-			this.InternalAllowedAccessorySlots = LockedAbilitiesConfig.Instance.InitialAccessorySlots;
+			var config = LockedAbilitiesConfig.Instance;
+			this.InternalAllowedAccessorySlots = config.Get<int>( nameof(LockedAbilitiesConfig.InitialAccessorySlots) );
 			this.TotalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
 
 			if( tag.ContainsKey("highest_acc_slots") ) {

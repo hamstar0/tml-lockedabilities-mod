@@ -31,7 +31,8 @@ namespace LockedAbilities.Items.Consumable {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesConfig.Instance.WorldGenChestImplantDarkHeartPieceChance;
+			var config = LockedAbilitiesConfig.Instance;
+			return config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantDarkHeartPieceChance) );
 		}
 	}
 }

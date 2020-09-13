@@ -60,7 +60,8 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesConfig.Instance.WorldGenChestImplantMountReinChance;
+			var config = LockedAbilitiesConfig.Instance;
+			return config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantMountReinChance) );
 		}
 	}
 }

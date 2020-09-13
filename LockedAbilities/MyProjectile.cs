@@ -13,7 +13,9 @@ using HamstarHelpers.Helpers.Debug;
 namespace LockedAbilities {
 	class MyProjectile : GlobalProjectile {
 		public override bool? CanUseGrapple( int projType, Player player ) {
-			if( LockedAbilitiesConfig.Instance.GrappleRequiresChainAmount > 0 ) {
+			var config = LockedAbilitiesConfig.Instance;
+
+			if( config.Get<int>( nameof(LockedAbilitiesConfig.GrappleRequiresChainAmount) ) > 0 ) {
 				int idx = ItemFinderHelpers.FindIndexOfFirstOfItemInCollection(
 					player.inventory,
 					new HashSet<int> { ItemID.Chain }
@@ -24,7 +26,7 @@ namespace LockedAbilities {
 				}
 			}
 
-			if( !LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
+			if( !config.GrappleHarnessEnabled ) {
 				return null;
 			}
 
@@ -47,7 +49,10 @@ namespace LockedAbilities {
 
 
 		public override void UseGrapple( Player player, ref int type ) {
-			if( LockedAbilitiesConfig.Instance.GrappleRequiresChainAmount > 0 ) {
+			var config = LockedAbilitiesConfig.Instance;
+			int chainAmt = config.Get<int>( nameof(LockedAbilitiesConfig.GrappleRequiresChainAmount) );
+
+			if( chainAmt > 0 ) {
 				int idx = ItemFinderHelpers.FindIndexOfFirstOfItemInCollection(
 					player.inventory,
 					new HashSet<int> { ItemID.Chain }
@@ -61,7 +66,7 @@ namespace LockedAbilities {
 				PlayerItemHelpers.RemoveInventoryItemQuantity(
 					player,
 					ItemID.Chain,
-					LockedAbilitiesConfig.Instance.GrappleRequiresChainAmount
+					chainAmt
 				);
 			}
 		}

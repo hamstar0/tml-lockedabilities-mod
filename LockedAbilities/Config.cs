@@ -1,8 +1,8 @@
-﻿using HamstarHelpers.Classes.UI.ModConfig;
-using HamstarHelpers.Services.Configs;
-using System;
+﻿using System;
 using System.ComponentModel;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
+using HamstarHelpers.Classes.UI.ModConfig;
 
 
 namespace LockedAbilities {
@@ -11,8 +11,8 @@ namespace LockedAbilities {
 
 
 	
-	public class LockedAbilitiesConfig : StackableModConfig {
-		public static LockedAbilitiesConfig Instance => ModConfigStack.GetMergedConfigs<LockedAbilitiesConfig>();
+	public partial class LockedAbilitiesConfig : ModConfig {
+		public static LockedAbilitiesConfig Instance => ModContent.GetInstance<LockedAbilitiesConfig>();
 
 
 

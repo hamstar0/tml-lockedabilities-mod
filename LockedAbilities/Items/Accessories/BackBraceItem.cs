@@ -40,7 +40,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.BackBraceEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.BackBraceEnabled) ) ) {
 				return false;
 			}
 
@@ -63,7 +63,8 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public float WorldGenChestWeight( Chest chest ) {
-			return LockedAbilitiesConfig.Instance.WorldGenChestImplantBackBraceChance;
+			var config = LockedAbilitiesConfig.Instance;
+			return config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantBackBraceChance) );
 		}
 	}
 }

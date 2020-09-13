@@ -1,11 +1,11 @@
 using System;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Helpers.Players;
-using Terraria.ID;
-using System.Linq;
-using Microsoft.Xna.Framework;
 
 
 namespace LockedAbilities {
@@ -23,7 +23,7 @@ namespace LockedAbilities {
 		////////////////
 
 		private void UpdateDoubleJumps( bool isOnGround ) {
-			if( !LockedAbilitiesConfig.Instance.DoubleJumpsRequireGels ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.DoubleJumpsRequireGels) ) ) {
 				return;
 			}
 
@@ -79,7 +79,7 @@ namespace LockedAbilities {
 
 
 		private void UpdateRocketBoots( bool isOnGround ) {
-			if( !LockedAbilitiesConfig.Instance.RocketBootsRequireGels ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.RocketBootsRequireGels) ) ) {
 				return;
 			}
 
@@ -105,7 +105,7 @@ namespace LockedAbilities {
 
 
 		private void UpdateWings( bool isOnGround ) {
-			if( !LockedAbilitiesConfig.Instance.WingsRequirePixieDust ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.WingsRequirePixieDust) ) ) {
 				return;
 			}
 

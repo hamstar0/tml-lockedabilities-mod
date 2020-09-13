@@ -71,15 +71,20 @@ namespace LockedAbilities.Items.Consumable {
 
 	class DarkHeartItemRecipe : ModRecipe {
 		public DarkHeartItemRecipe( DarkHeartItem myitem ) : base( myitem.mod ) {
+			var config = LockedAbilitiesConfig.Instance;
+			int pieces = config.Get<int>( nameof(LockedAbilitiesConfig.DarkHeartPiecesPerDarkHeart) );
+
 			this.AddTile( TileID.DemonAltar );
-			this.AddIngredient( ModContent.GetInstance<DarkHeartPieceItem>(),  LockedAbilitiesConfig.Instance.DarkHeartPiecesPerDarkHeart );
+			this.AddIngredient( ModContent.GetInstance<DarkHeartPieceItem>(), pieces );
 
 			this.SetResult( myitem, 1 );
 		}
 
 
 		public override bool RecipeAvailable() {
-			return  LockedAbilitiesConfig.Instance.DarkHeartPiecesPerDarkHeart > 0;
+			var config = LockedAbilitiesConfig.Instance;
+
+			return config.Get<int>( nameof(LockedAbilitiesConfig.DarkHeartPiecesPerDarkHeart) ) > 0;
 		}
 	}
 }

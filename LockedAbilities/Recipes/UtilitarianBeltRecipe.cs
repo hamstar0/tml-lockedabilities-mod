@@ -7,27 +7,29 @@ using Terraria.ModLoader;
 namespace LockedAbilities.Recipes {
 	class UtilitarianBeltRecipe : ModRecipe {
 		public UtilitarianBeltRecipe() : base( LockedAbilitiesMod.Instance ) {
+			var config = LockedAbilitiesConfig.Instance;
+
 			this.AddTile( TileID.TinkerersWorkbench );
 
-			if( LockedAbilitiesConfig.Instance.BackBraceEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.BackBraceEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<BackBraceItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.BootLacesEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.BootLacesEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<BootLacesItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.FlyingCertificateEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.FlyingCertificateEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<FlyingCertificateItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.GrappleHarnessEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<GrappleHarnessItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.GunPermitEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.GunPermitEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<GunPermitItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.MountReinEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<MountReinItem>() );
 			}
-			if( LockedAbilitiesConfig.Instance.SafetyHarnessEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.SafetyHarnessEnabled) ) ) {
 				this.AddIngredient( ModContent.ItemType<SafetyHarnessItem>() );
 			}
 
@@ -36,31 +38,33 @@ namespace LockedAbilities.Recipes {
 
 
 		public override bool RecipeAvailable() {
-			if( !LockedAbilitiesConfig.Instance.ArticulationRiggingEnabled ) {
+			var config = LockedAbilitiesConfig.Instance;
+
+			if( !config.Get<bool>( nameof(LockedAbilitiesConfig.ArticulationRiggingEnabled) ) ) {
 				return false;
 			}
 
 			int itemIngredients = 0;
 
-			if( LockedAbilitiesConfig.Instance.BackBraceEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.BackBraceEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.BootLacesEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.BootLacesEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.FlyingCertificateEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.FlyingCertificateEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.GrappleHarnessEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.GunPermitEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.GunPermitEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.MountReinEnabled) ) ) {
 				itemIngredients++;
 			}
-			if( LockedAbilitiesConfig.Instance.SafetyHarnessEnabled ) {
+			if( config.Get<bool>( nameof(LockedAbilitiesConfig.SafetyHarnessEnabled) ) ) {
 				itemIngredients++;
 			}
 
