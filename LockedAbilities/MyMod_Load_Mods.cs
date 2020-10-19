@@ -20,36 +20,52 @@ namespace LockedAbilities {
 			var config = LockedAbilitiesConfig.Instance;
 
 			IEnumerable<(ModItem myitem, float chance)> getWeight() {
-				var item1 = ModContent.GetInstance<BackBraceItem>();
-				var item2 = ModContent.GetInstance<BootLacesItem>();
-				var item3 = ModContent.GetInstance<FlyingCertificateItem>();
-				var item4 = ModContent.GetInstance<GrappleHarnessItem>();
-				var item5 = ModContent.GetInstance<GunPermitItem>();
-				var item6 = ModContent.GetInstance<MountReinItem>();
-				var item7 = ModContent.GetInstance<SafetyHarnessItem>();
-				var item8 = ModContent.GetInstance<DarkHeartPieceItem>();
-				yield return ( item1, item1.WorldGenChestWeight(chest) );
-				yield return ( item2, item2.WorldGenChestWeight(chest) );
-				yield return ( item3, item3.WorldGenChestWeight(chest) );
-				yield return ( item4, item4.WorldGenChestWeight(chest) );
-				yield return ( item5, item5.WorldGenChestWeight(chest) );
-				yield return ( item6, item6.WorldGenChestWeight(chest) );
-				yield return ( item7, item7.WorldGenChestWeight(chest) );
+				var itemBack = ModContent.GetInstance<BackBraceItem>();
+				var itemBoot = ModContent.GetInstance<BootLacesItem>();
+				var itemFly = ModContent.GetInstance<FlyingCertificateItem>();
+				var itemGrap = ModContent.GetInstance<GrappleHarnessItem>();
+				var itemGun = ModContent.GetInstance<GunPermitItem>();
+				var itemMount = ModContent.GetInstance<MountReinItem>();
+				var itemSafe = ModContent.GetInstance<SafetyHarnessItem>();
+				var itemDark = ModContent.GetInstance<DarkHeartPieceItem>();
 
-				if( config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantDarkHeartPieceChance) ) > 0 ) {
-					yield return ( item8, item8.WorldGenChestWeight(chest) );
+				if( config.Get<bool>( nameof(config.BackBraceEnabled) ) ) {
+					yield return ( itemBack, itemBack.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.BootLacesEnabled) ) ) {
+					yield return ( itemBoot, itemBoot.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.FlyingCertificateEnabled) ) ) {
+					yield return ( itemFly, itemFly.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.GrappleHarnessEnabled) ) ) {
+					yield return ( itemGrap, itemGrap.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.GunPermitEnabled) ) ) {
+					yield return ( itemGun, itemGun.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.MountReinEnabled) ) ) {
+					yield return ( itemMount, itemMount.WorldGenChestWeight(chest) );
+				}
+				if( config.Get<bool>( nameof(config.SafetyHarnessEnabled) ) ) {
+					yield return ( itemSafe, itemSafe.WorldGenChestWeight(chest) );
+				}
+
+				if( config.Get<float>( nameof(config.WorldGenChestImplantDarkHeartPieceChance) ) > 0f ) {
+					yield return ( itemDark, itemDark.WorldGenChestWeight(chest) );
 				}
 			}
 
 			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
-			float totalWeight = getWeight()
+			IEnumerable<(ModItem myitem, float chance)> weights = getWeight();
+			float totalWeight = weights
 				.SafeSelect( item => item.chance )
 				.Sum();
 
 			float randVal = rand.NextFloat() * totalWeight;
 			float climbingWeights = 0f;
 
-			foreach( (ModItem myitem, float chance) in getWeight() ) {
+			foreach( (ModItem myitem, float chance) in weights ) {
 				climbingWeights += chance;
 				if( randVal < climbingWeights ) {
 					return myitem.item.type;
