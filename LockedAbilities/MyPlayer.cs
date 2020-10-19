@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -59,87 +60,32 @@ namespace LockedAbilities {
 
 		////////////////
 
-		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
-			if( Main.netMode == 1 ) {
-				if( toWho == -1 && fromWho == -1 && newPlayer ) {
-					//this.OnCurrentClientConnect();
-					PlayerDarkHeartsProtocol.Sync( Main.myPlayer, this.InternalAllowedAccessorySlots );
-				}
+		internal void OnCurrentPlayerEnter() {
+			PlayerDarkHeartsProtocol.Broadcast( this.InternalAllowedAccessorySlots );
+		}
+
+		public override void clientClone( ModPlayer clientClone ) {
+			var myclone = (LockedAbilitiesPlayer)clientClone;
+
+			myclone.InternalAllowedAccessorySlots = this.InternalAllowedAccessorySlots;
+		}
+
+		////////////////
+
+		public override void SendClientChanges( ModPlayer clientPlayer ) {
+			if( clientPlayer.player.whoAmI != Main.myPlayer ) {
+				return;
 			}
-			if( Main.netMode == 2 ) {
-				if( toWho == -1 && fromWho == this.player.whoAmI ) {
-					//this.OnServerConnect( Main.player[fromWho] );
-				}
+
+			var myclone = (LockedAbilitiesPlayer)clientPlayer;
+
+			if( myclone.InternalAllowedAccessorySlots != this.InternalAllowedAccessorySlots ) {
+				PlayerDarkHeartsProtocol.Broadcast( this.InternalAllowedAccessorySlots );
 			}
 		}
 
 
 		////////////////
-
-		public override void PreUpdate() {
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
-			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
-
-			this.TestMountState();
-
-			// Find equipped ability items
-			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
-				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
-					continue;
-				}
-
-				this.TestMaxAllowedAccessorySlots( item );
-
-				equippedAbilityItemTypes.Add( item.modItem.GetType() );
-			}
-
-			this.TestArmorSlots( equippedAbilityItemTypes );
-			this.TestMiscSlots( equippedAbilityItemTypes );
-
-			if( !this.player.dead ) {
-				this.UpdateVerticalMovement( this.player.velocity.Y == 0 && !this.player.HasBuff(BuffID.Webbed) );
-			}
-		}
-
-
-		////////////////
-
-
-		public override bool PreItemCheck() {
-			if( !Main.mouseLeft && !Main.mouseRight ) {
-				return base.PreItemCheck();
-			}
-
-			string timerName = "LockedAbilitiesEquipCheck_" + this.player.whoAmI;
-			if( Timers.GetTimerTickDuration( timerName ) > 0 ) {
-				Timers.SetTimer( timerName, 2, false, () => false );
-				return false;
-			}
-
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
-			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
-
-			// Find equipped ability items
-			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
-				Item item = this.player.armor[i];
-				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
-					continue;
-				}
-
-				equippedAbilityItemTypes.Add( item.modItem.GetType() );
-			}
-
-			if( !this.TestEquipItem( equippedAbilityItemTypes, this.player.HeldItem ) ) {
-				Timers.SetTimer( timerName, 2, false, () => false );
-				return false;
-			}
-
-			return base.PreItemCheck();
-		}
-
 
 		/*public override bool ConsumeAmmo( Item weapon, Item ammo ) {
 			return this.CanUse( weapon ) && this.CanUse( ammo );
@@ -171,5 +117,87 @@ namespace LockedAbilities {
 
 			return this.TestEquipItem( equippedAbilityItemTypes, item );
 		}*/
+
+
+		////////////////
+
+		public override void PreUpdate() {
+			IList<Item> equippedAbilityItemList = this.GetEquippedAbilityItems();
+			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>(
+				equippedAbilityItemList
+					.Where( i => i.modItem != null )
+					.Select( i => i.modItem?.GetType() )
+			);
+
+			this.TestMountState();
+
+			// Find equipped ability items
+			foreach( Item item in equippedAbilityItemList ) {
+				this.TestMaxAllowedAccessorySlots( item );
+			}
+
+			this.TestArmorSlots( equippedAbilityItemTypes );
+			this.TestMiscSlots( equippedAbilityItemTypes );
+
+			if( !this.player.dead ) {
+				this.UpdateVerticalMovement( this.player.velocity.Y == 0 && !this.player.HasBuff(BuffID.Webbed) );
+			}
+		}
+
+
+		////////////////
+
+		public override bool PreItemCheck() {
+			if( !Main.mouseLeft && !Main.mouseRight ) {
+				return base.PreItemCheck();
+			}
+
+			string timerName = "LockedAbilitiesEquipCheck_" + this.player.whoAmI;
+			if( Timers.GetTimerTickDuration( timerName ) > 0 ) {
+				Timers.SetTimer( timerName, 2, false, () => false );
+				return false;
+			}
+
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
+			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
+
+			// Find equipped ability items
+			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
+				Item item = this.player.armor[i];
+				if( item == null || item.IsAir || item.modItem == null || !( item.modItem is IAbilityAccessoryItem ) ) {
+					continue;
+				}
+
+				equippedAbilityItemTypes.Add( item.modItem.GetType() );
+			}
+
+			if( !this.TestEquipItem( equippedAbilityItemTypes, this.player.HeldItem ) ) {
+				Timers.SetTimer( timerName, 2, false, () => false );
+				return false;
+			}
+
+			return base.PreItemCheck();
+		}
+
+
+		////////////////
+
+		private IList<Item> GetEquippedAbilityItems() {
+			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(player) + firstAccSlot;
+			var items = new List<Item>();
+
+			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {
+				Item item = player.armor[i];
+				if( item == null || item.IsAir || item.modItem == null || !(item.modItem is IAbilityAccessoryItem) ) {
+					continue;
+				}
+
+				items.Add( item );
+			}
+
+			return items;
+		}
 	}
 }

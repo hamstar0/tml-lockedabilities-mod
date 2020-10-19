@@ -1,18 +1,18 @@
 ﻿using System;
 using Terraria;
 using HamstarHelpers.Classes.Errors;
-using HamstarHelpers.Classes.Protocols.Packet.Interfaces;
 using HamstarHelpers.Helpers.TModLoader;
+using HamstarHelpers.Services.Network.NetIO;
+using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
 
 
 namespace LockedAbilities.Protocols {
-	class PlayerDarkHeartsProtocol : PacketProtocolSentToEither {
-		public static void Sync( int fromPlayerWho, int darkHearts ) {
+	class PlayerDarkHeartsProtocol : NetIOBroadcastPayload {
+		public static void Broadcast( int darkHearts ) {
 			if( Main.netMode != 1 ) { throw new ModHelpersException("Not client.");  }
 
-			var protocol = new PlayerDarkHeartsProtocol( fromPlayerWho, darkHearts );
-
-			protocol.SendToServer( true );
+			var protocol = new PlayerDarkHeartsProtocol( Main.myPlayer, darkHearts );
+			NetIO.Broadcast( protocol );
 		}
 
 
@@ -36,31 +36,15 @@ namespace LockedAbilities.Protocols {
 
 		////////////////
 
-		protected override void ReceiveOnServer( int fromWho ) {
-			int darkHearts = this.DarkHearts;
+		public override bool ReceiveOnServerBeforeRebroadcast( int fromWho ) {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
 
-			myplayer.SetAllowedAccessorySlots( darkHearts );
+			myplayer.SetAllowedAccessorySlots( this.DarkHearts );
 
-			this.SendToClient( -1, fromWho );
-
-			for( int i=0; i<Main.maxPlayers; i++ ) {
-				Player player = Main.player[i];
-				if( player?.active != true || i == fromWho ) { continue; }
-
-				var myotherplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[i] );
-
-				this.PlayerWho = i;
-				this.DarkHearts = myotherplayer.InternalAllowedAccessorySlots;
-
-				this.SendToClient( fromWho, -1 );
-			}
-
-			this.PlayerWho = fromWho;
-			this.DarkHearts = darkHearts;
+			return true;
 		}
 
-		protected override void ReceiveOnClient() {
+		public override void ReceiveBroadcastOnClient() {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
 			myplayer.SetAllowedAccessorySlots( this.DarkHearts );
 		}

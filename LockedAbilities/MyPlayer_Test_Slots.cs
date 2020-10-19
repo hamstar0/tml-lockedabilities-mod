@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Players;
-using Terraria.ModLoader.IO;
-using LockedAbilities.Items.Accessories;
 
 
 namespace LockedAbilities {

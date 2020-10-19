@@ -1,12 +1,12 @@
-using HamstarHelpers.Helpers.HUD;
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.TModLoader;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
+using HamstarHelpers.Helpers.HUD;
+using HamstarHelpers.Helpers.Players;
+using HamstarHelpers.Helpers.TModLoader;
 
 
 namespace LockedAbilities {
@@ -17,7 +17,7 @@ namespace LockedAbilities {
 
 			GameInterfaceDrawMethod locksUI = () => {
 				if( Main.playerInventory && Main.EquipPage == 0 ) { //== 2 is misc page
-					this.DrawAccessoryOverlays( Main.spriteBatch );
+					this.DrawDisabledAccessorySlotOverlays( Main.spriteBatch );
 				}
 				return true;
 			};
@@ -33,7 +33,7 @@ namespace LockedAbilities {
 		}*/
 
 
-		private void DrawAccessoryOverlays( SpriteBatch sb ) {
+		private void DrawDisabledAccessorySlotOverlays( SpriteBatch sb ) {
 			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
 			if( myplayer.TotalAllowedAccessorySlots < 0 ) {
 				return;
