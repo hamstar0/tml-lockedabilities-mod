@@ -120,12 +120,31 @@ namespace LockedAbilities {
 					} else if( this.player.wingTime > 0 && this.player.wingTime < this.player.wingTimeMax ) {
 						if( !this.HasWingsChecked ) {
 							this.HasWingsChecked = true;
-							PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.PixieDust, 1 );
+							this.ConsumePixieDust();
 						}
 					}
 				}
 			} else {
 				this.HasWingsChecked = false;
+			}
+		}
+
+		private void ConsumePixieDust() {
+			PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.PixieDust, 1 );
+
+			for( int i=0; i<4; i++ ) {
+				int dustIdx = Dust.NewDust(
+					Position: this.player.position,
+					Height: this.player.width,
+					Width: this.player.height,
+					Type: 55,
+					SpeedX: 0f,
+					SpeedY: 0f,
+					Alpha: 200,
+					newColor: Color.White,
+					Scale: 1f
+				);
+				Main.dust[dustIdx].velocity *= 0.3f;
 			}
 		}
 	}

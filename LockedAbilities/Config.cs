@@ -54,7 +54,7 @@ namespace LockedAbilities {
 		public bool SafetyHarnessEnabled { get; set; } = true;
 
 		[DefaultValue( true )]
-		public bool ArticulationRiggingEnabled { get; set; } = true;
+		public bool UtilitarianBeltEnabled { get; set; } = true;
 
 
 		[DefaultValue( true )]

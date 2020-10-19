@@ -40,7 +40,7 @@ namespace LockedAbilities.Recipes {
 		public override bool RecipeAvailable() {
 			var config = LockedAbilitiesConfig.Instance;
 
-			if( !config.Get<bool>( nameof(LockedAbilitiesConfig.ArticulationRiggingEnabled) ) ) {
+			if( !config.Get<bool>( nameof(LockedAbilitiesConfig.UtilitarianBeltEnabled) ) ) {
 				return false;
 			}
 
