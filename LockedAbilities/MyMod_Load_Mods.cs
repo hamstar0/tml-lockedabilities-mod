@@ -56,6 +56,8 @@ namespace LockedAbilities {
 				}
 			}
 
+			//
+
 			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
 			IEnumerable<(ModItem myitem, float chance)> weights = getWeight();
 			float totalWeight = weights
@@ -99,14 +101,15 @@ namespace LockedAbilities {
 
 				var config = LockedAbilitiesConfig.Instance;
 				UnifiedRandom rand = TmlHelpers.SafelyGetRand();
-				float implantChance = config.Get<float>( nameof( LockedAbilitiesConfig.WorldGenChestImplantChance ) );
+				float implantChance = config.Get<float>( nameof(config.WorldGenChestImplantChance) );
 				if( rand.NextFloat() > implantChance ) {
 					return;
 				}
 
 				int randItemType = LockedAbilitiesMod.GetRandomAccessoryForLocation( chest, isLocked );
 				if( randItemType == -1 ) {
-					throw new ModHelpersException( "Could not pick random item for chest" );
+					//throw new ModHelpersException( "Could not pick random item for chest" );
+					return;
 				}
 
 				for( int i=chest.item.Length-1; i>0; i-- ) {
