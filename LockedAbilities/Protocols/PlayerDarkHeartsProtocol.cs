@@ -7,6 +7,7 @@ using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
 
 
 namespace LockedAbilities.Protocols {
+	[Serializable]
 	class PlayerDarkHeartsProtocol : NetIOBroadcastPayload {
 		public static void Broadcast( int darkHearts ) {
 			if( Main.netMode != 1 ) { throw new ModHelpersException("Not client.");  }
