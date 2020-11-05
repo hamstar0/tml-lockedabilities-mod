@@ -32,7 +32,10 @@ namespace LockedAbilities {
 
 		////
 
-		private bool TestMiscAgainstMissingAbilities( ISet<Type> equippedAbilityEnablingItemTypes, int slot, out string alert ) {
+		private bool TestMiscAgainstMissingAbilities(
+					ISet<Type> equippedAbilityEnablingItemTypes,
+					int slot,
+					out string alert ) {
 			var mymod = (LockedAbilitiesMod)this.mod;
 			bool? isMissing = null;
 			var missingAbilityEnablingModItems = new List<string>();

@@ -41,7 +41,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.SafetyHarnessEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.SafetyHarnessEnabled) ) ) {
 				return false;
 			}
 

@@ -25,8 +25,8 @@ namespace LockedAbilities {
 					return false;
 				}
 			}
-
-			if( !config.GrappleHarnessEnabled ) {
+			
+			if( !config.Get<bool>( nameof(config.GrappleHarnessEnabled) ) ) {
 				return null;
 			}
 

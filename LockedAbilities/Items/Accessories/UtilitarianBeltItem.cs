@@ -40,9 +40,11 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
-			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+			var abilityItemDefs = LockedAbilitiesMod.Instance.AbilityItemSingletons;
+
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemDef) in abilityItemDefs ) {
 				if( abilityEnablingItemType != this.GetType() ) {
-					if( abilityEnablingItemSingleton.EnablesArmorItem( player, slot, item ) ) {
+					if( abilityEnablingItemDef.EnablesArmorItem( player, slot, item ) ) {
 						return true;
 					}
 				}
@@ -52,10 +54,12 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool EnablesMiscItem( Player player, int slot, Item item ) {
-			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+			var abilityItemDefs = LockedAbilitiesMod.Instance.AbilityItemSingletons;
+
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemDefs) in abilityItemDefs ) {
 				if( abilityEnablingItemType == this.GetType() ) { continue; }
 
-				if( abilityEnablingItemSingleton.EnablesMiscItem( player, slot, item ) ) {
+				if( abilityEnablingItemDefs.EnablesMiscItem( player, slot, item ) ) {
 					return true;
 				}
 			}
@@ -64,10 +68,12 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool EnablesEquipItem( Player player, Item item ) {
-			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemSingleton) in LockedAbilitiesMod.Instance.AbilityItemSingletons ) {
+			var abilityItemDefs = LockedAbilitiesMod.Instance.AbilityItemSingletons;
+
+			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItemDefs) in abilityItemDefs ) {
 				if( abilityEnablingItemType == this.GetType() ) { continue; }
 				
-				if( abilityEnablingItemSingleton.EnablesEquipItem( player, item ) ) {
+				if( abilityEnablingItemDefs.EnablesEquipItem( player, item ) ) {
 					return true;
 				}
 			}

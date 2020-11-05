@@ -48,7 +48,7 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool EnablesEquipItem( Player player, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.GunPermitEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.GunPermitEnabled) ) ) {
 				return false;
 			}
 

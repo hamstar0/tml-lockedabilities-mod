@@ -41,7 +41,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.FlyingCertificateEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.FlyingCertificateEnabled) ) ) {
 				return false;
 			}
 

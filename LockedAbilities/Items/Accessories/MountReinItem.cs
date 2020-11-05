@@ -43,7 +43,7 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool EnablesMiscItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.MountReinEnabled) ) ) {
 				return false;
 			}
 

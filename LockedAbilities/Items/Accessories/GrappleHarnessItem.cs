@@ -44,7 +44,7 @@ namespace LockedAbilities.Items.Accessories {
 		}
 
 		public bool EnablesMiscItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.GrappleHarnessEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.GrappleHarnessEnabled) ) ) {
 				return false;
 			}
 

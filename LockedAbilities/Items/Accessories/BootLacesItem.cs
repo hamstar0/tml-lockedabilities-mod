@@ -39,7 +39,7 @@ namespace LockedAbilities.Items.Accessories {
 		////////////////
 
 		public bool EnablesArmorItem( Player player, int slot, Item item ) {
-			if( !LockedAbilitiesConfig.Instance.BootLacesEnabled ) {
+			if( !LockedAbilitiesConfig.Instance.Get<bool>( nameof(LockedAbilitiesConfig.BootLacesEnabled) ) ) {
 				return false;
 			}
 

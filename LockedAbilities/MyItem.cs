@@ -14,7 +14,7 @@ namespace LockedAbilities {
 			TooltipLine tip;
 
 			if( item.wingSlot != -1 ) {
-				if( config.Get<bool>( nameof(LockedAbilitiesConfig.WingsRequirePixieDust) ) ) {
+				if( config.Get<bool>( nameof(config.WingsRequirePixieDust) ) ) {
 					tip = new TooltipLine( this.mod, "LockedAbiltiesWingFuel", "Wings require pixie dust to use." );
 					tip.overrideColor = Color.Yellow;
 					tooltips.Add( tip );
@@ -25,7 +25,7 @@ namespace LockedAbilities {
 				case ItemID.SpectreBoots:
 				case ItemID.LightningBoots:
 				case ItemID.FrostsparkBoots:
-					if( config.Get<bool>( nameof(LockedAbilitiesConfig.RocketBootsRequireGels) ) ) {
+					if( config.Get<bool>( nameof(config.RocketBootsRequireGels) ) ) {
 						tip = new TooltipLine( this.mod, "LockedAbiltiesRocketFuel", "Rocket boots require gels to use." );
 						tip.overrideColor = Color.Yellow;
 						tooltips.Add( tip );
@@ -41,14 +41,14 @@ namespace LockedAbilities {
 				case ItemID.FartinaJar:
 				case ItemID.BalloonHorseshoeFart:
 				case ItemID.TsunamiInABottle:
-					int chainAmt = config.Get<int>( nameof(LockedAbilitiesConfig.GrappleRequiresChainAmount) );
+					int chainAmt = config.Get<int>( nameof(config.GrappleRequiresChainAmount) );
 
 					if( chainAmt > 0 && ItemAttributeHelpers.IsGrapple( item ) ) {
 						tip = new TooltipLine( this.mod, "LockedAbilitiesGrappleChainAmmo",
 							"Consumes "+chainAmt+" chain(s) per use" );
 						ItemInformationAttributeHelpers.ApplyTooltipAt( tooltips, tip );
 					}
-					if( config.Get<bool>( nameof(LockedAbilitiesConfig.DoubleJumpsRequireGels) ) ) {
+					if( config.Get<bool>( nameof(config.DoubleJumpsRequireGels) ) ) {
 						tip = new TooltipLine( this.mod, "LockedAbiltiesJumpFuel",
 							"Double jump items require gels to use." );
 						tip.overrideColor = Color.Yellow;
