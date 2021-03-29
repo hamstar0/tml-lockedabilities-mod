@@ -83,7 +83,7 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public float WorldGenChestWeight( Chest chest ) {
+		public float WorldGenChestWeight() {
 			return 0f;
 		}
 	}

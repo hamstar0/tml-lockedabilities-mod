@@ -77,7 +77,7 @@ namespace LockedAbilities.Items.Accessories {
 
 		////////////////
 
-		public float WorldGenChestWeight( Chest chest ) {
+		public float WorldGenChestWeight() {
 			var config = LockedAbilitiesConfig.Instance;
 			return config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantFlyingCertificateChance) );
 		}

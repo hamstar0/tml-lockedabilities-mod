@@ -1,7 +1,7 @@
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using LockedAbilities.Recipes;
@@ -22,6 +22,7 @@ namespace LockedAbilities {
 
 
 
+		////////////////
 
 		public LockedAbilitiesMod() {
 			LockedAbilitiesMod.Instance = this;
@@ -34,8 +35,6 @@ namespace LockedAbilities {
 			if( Main.netMode != 2 ) {   // Not server
 				this.DisabledItemTex = ModContent.GetTexture( "Terraria/MapDeath" );
 			}
-
-			this.LoadChestImplantMod();
 		}
 
 		////

@@ -30,7 +30,7 @@ namespace LockedAbilities.Items.Consumable {
 
 		////////////////
 
-		public float WorldGenChestWeight( Chest chest ) {
+		public float WorldGenChestWeight() {
 			var config = LockedAbilitiesConfig.Instance;
 			return config.Get<float>( nameof(LockedAbilitiesConfig.WorldGenChestImplantDarkHeartPieceChance) );
 		}
