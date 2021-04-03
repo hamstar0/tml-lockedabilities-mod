@@ -1,10 +1,10 @@
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.DotNET.Extensions;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using HamstarHelpers.Helpers.Players;
+using HamstarHelpers.Helpers.DotNET.Extensions;
 
 
 namespace LockedAbilities {
@@ -16,7 +16,7 @@ namespace LockedAbilities {
 
 			// Test each item against equipped ability items
 			for( int slot = 0; slot < maxMiscSlot; slot++ ) {
-				Item item = this.player.miscEquips[slot];
+				Item item = this.player.miscEquips[ slot ];
 				if( item == null || item.IsAir ) {
 					continue;
 				}
