@@ -10,7 +10,8 @@ using Microsoft.Xna.Framework;
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
 		private void TestMountState() {
-			if( !LockedAbilitiesConfig.Instance.MountReinEnabled ) {
+			var config = LockedAbilitiesConfig.Instance;
+			if( !config.Get<bool>( nameof(config.MountReinEnabled) ) ) {
 				return;
 			}
 
