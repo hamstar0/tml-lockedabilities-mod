@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Services.Timers;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Services.Timers;
+using ModLibsGeneral.Libraries.Players;
 using LockedAbilities.Protocols;
 
 
@@ -98,8 +98,8 @@ namespace LockedAbilities {
 		////
 
 		private bool CanUse( Item item ) {
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemLibraries.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
 
 			// Find equipped ability items
@@ -158,8 +158,8 @@ namespace LockedAbilities {
 				return false;
 			}
 
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemLibraries.GetCurrentVanillaMaxAccessories(this.player) + firstAccSlot;
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>();
 
 			// Find equipped ability items
@@ -184,8 +184,8 @@ namespace LockedAbilities {
 		////////////////
 
 		private IList<Item> GetEquippedAbilityItems() {
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(player) + firstAccSlot;
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemLibraries.GetCurrentVanillaMaxAccessories(player) + firstAccSlot;
 			var items = new List<Item>();
 
 			for( int i = firstAccSlot; i < maxAccSlot; i++ ) {

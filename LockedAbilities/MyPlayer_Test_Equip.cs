@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.DotNET.Extensions;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Libraries.DotNET.Extensions;
 
 
 namespace LockedAbilities {
@@ -20,7 +19,7 @@ namespace LockedAbilities {
 			// Test equipped item against equipped ability items
 			if( !this.TestEquipAgainstMissingAbilities(abilityItemTypes, item, out alert) ) {
 				Main.NewText( alert, Color.Yellow );
-				//PlayerItemHelpers.DropInventoryItem( this.player, PlayerItemHelpers.VanillaInventorySelectedSlot );
+				//PlayerItemLibraries.DropInventoryItem( this.player, PlayerItemLibraries.VanillaInventorySelectedSlot );
 				//Main.mouseItem = new Item();
 				return false;
 			}

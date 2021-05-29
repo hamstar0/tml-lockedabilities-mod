@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.DotNET.Extensions;
+using ModLibsCore.Libraries.DotNET.Extensions;
+using ModLibsGeneral.Libraries.Items;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace LockedAbilities {
@@ -23,7 +24,7 @@ namespace LockedAbilities {
 
 				if( !this.TestMiscAgainstMissingAbilities( abilityItemTypes, slot, out alert) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedMiscItem( this.player, slot, 0 );
+					PlayerItemLibraries.DropEquippedMiscItem( this.player, slot, 0 );
 					continue;
 				}
 			}

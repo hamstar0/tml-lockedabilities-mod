@@ -1,7 +1,7 @@
-﻿using HamstarHelpers.Helpers.Items.Attributes;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ModLoader;
+using ModLibsGeneral.Libraries.Items.Attributes;
 
 
 namespace LockedAbilities.Items.Accessories {
@@ -48,7 +48,7 @@ namespace LockedAbilities.Items.Accessories {
 				return false;
 			}
 
-			if( ItemAttributeHelpers.IsGrapple( item ) ) {
+			if( ItemAttributeLibraries.IsGrapple( item ) ) {
 				return true;
 			}
 			return false;

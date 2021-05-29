@@ -4,10 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using HamstarHelpers.Helpers.HUD;
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.TModLoader;
-
+using ModLibsCore.Libraries.TModLoader;
+using ModLibsGeneral.Libraries.HUD;
+using ModLibsGeneral.Libraries.Players;
 
 namespace LockedAbilities {
 	public partial class LockedAbilitiesMod : Mod {
@@ -34,13 +33,13 @@ namespace LockedAbilities {
 
 
 		private void DrawDisabledAccessorySlotOverlays( SpriteBatch sb ) {
-			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
+			var myplayer = TmlLibraries.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.LocalPlayer );
 			if( myplayer.TotalAllowedAccessorySlots < 0 ) {
 				return;
 			}
 
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int maxAcc = PlayerItemLibraries.GetCurrentVanillaMaxAccessories(Main.LocalPlayer) + firstAccSlot;
 			int myMaxAcc = myplayer.TotalAllowedAccessorySlots;
 
 			for( int i=firstAccSlot; i<maxAcc; i++ ) {
@@ -48,7 +47,7 @@ namespace LockedAbilities {
 					continue;
 				}
 
-				var pos = HUDElementHelpers.GetVanillaAccessorySlotScreenPosition( i - firstAccSlot );
+				var pos = HUDElementLibraries.GetVanillaAccessorySlotScreenPosition( i - firstAccSlot );
 				pos.X += 8;
 				pos.Y += 8;
 

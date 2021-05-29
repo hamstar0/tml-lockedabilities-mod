@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Players;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace LockedAbilities {
@@ -50,23 +50,23 @@ namespace LockedAbilities {
 
 				if( this.player.doubleJumpBlizzard && !this.player.jumpAgainBlizzard && !this.HasBlizzardJumped ) {
 					this.HasBlizzardJumped = true;
-					PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+					PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 				} else
 				if( this.player.doubleJumpCloud && !this.player.jumpAgainCloud && !this.HasCloudJumped ) {
 					this.HasCloudJumped = true;
-					PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+					PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 				} else
 				if( this.player.doubleJumpFart && !this.player.jumpAgainFart && !this.HasFartJumped ) {
 					this.HasFartJumped = true;
-					PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+					PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 				} else
 				if( this.player.doubleJumpSail && !this.player.jumpAgainSail && !this.HasSailJumped ) {
 					this.HasSailJumped = true;
-					PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+					PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 				}
 				if( this.player.doubleJumpSandstorm && !this.player.jumpAgainSandstorm && !this.HasSandstormJumped ) {
 					this.HasSandstormJumped = true;
-					PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+					PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 				}
 			} else {
 				this.HasBlizzardJumped = false;
@@ -94,7 +94,7 @@ namespace LockedAbilities {
 					} else if( this.player.rocketTime > 0 && this.player.rocketTime < this.player.rocketTimeMax ) {
 						if( !this.HasRocketChecked ) {
 							this.HasRocketChecked = true;
-							PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
+							PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.Gel, 1 );
 						}
 					}
 				}
@@ -130,7 +130,7 @@ namespace LockedAbilities {
 		}
 
 		private void ConsumePixieDust() {
-			PlayerItemHelpers.RemoveInventoryItemQuantity( this.player, ItemID.PixieDust, 1 );
+			PlayerItemLibraries.RemoveInventoryItemQuantity( this.player, ItemID.PixieDust, 1 );
 
 			for( int i=0; i<4; i++ ) {
 				int dustIdx = Dust.NewDust(

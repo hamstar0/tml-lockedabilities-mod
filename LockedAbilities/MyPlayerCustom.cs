@@ -1,7 +1,7 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
-using HamstarHelpers.Classes.PlayerData;
+using ModLibsCore.Classes.PlayerData;
 
 
 namespace LockedAbilities {

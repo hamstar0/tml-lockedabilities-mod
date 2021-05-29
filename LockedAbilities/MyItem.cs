@@ -1,10 +1,10 @@
-﻿using HamstarHelpers.Helpers.Items.Attributes;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsGeneral.Libraries.Items.Attributes;
 
 
 namespace LockedAbilities {
@@ -43,10 +43,10 @@ namespace LockedAbilities {
 				case ItemID.TsunamiInABottle:
 					int chainAmt = config.Get<int>( nameof(config.GrappleRequiresChainAmount) );
 
-					if( chainAmt > 0 && ItemAttributeHelpers.IsGrapple( item ) ) {
+					if( chainAmt > 0 && ItemAttributeLibraries.IsGrapple( item ) ) {
 						tip = new TooltipLine( this.mod, "LockedAbilitiesGrappleChainAmmo",
 							"Consumes "+chainAmt+" chain(s) per use" );
-						ItemInformationAttributeHelpers.ApplyTooltipAt( tooltips, tip );
+						ItemInformationAttributeLibraries.ApplyTooltipAt( tooltips, tip );
 					}
 					if( config.Get<bool>( nameof(config.DoubleJumpsRequireGels) ) ) {
 						tip = new TooltipLine( this.mod, "LockedAbiltiesJumpFuel",

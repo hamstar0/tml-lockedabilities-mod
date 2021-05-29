@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.DotNET.Extensions;
+using ModLibsCore.Libraries.DotNET.Extensions;
 
 
 namespace LockedAbilities.Items.Accessories {

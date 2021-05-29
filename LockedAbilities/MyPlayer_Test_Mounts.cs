@@ -1,8 +1,8 @@
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.Players;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.Players;
 using LockedAbilities.Items.Accessories;
 using Microsoft.Xna.Framework;
 
@@ -21,8 +21,8 @@ namespace LockedAbilities {
 
 			int mountReinType = ModContent.ItemType<MountReinItem>();
 			int utilBeltType = ModContent.ItemType<UtilitarianBeltItem>();
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int lastAccSlot = PlayerItemHelpers.GetFirstVanitySlot( player );
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int lastAccSlot = PlayerItemLibraries.GetFirstVanitySlot( player );
 
 			for( int i = firstAccSlot; i < lastAccSlot; i++ ) {
 				Item item = player.armor[i];

@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Items;
-using HamstarHelpers.Helpers.Players;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.Items;
+using ModLibsGeneral.Libraries.Players;
 using LockedAbilities.Items.Accessories;
-using HamstarHelpers.Helpers.Debug;
 
 
 namespace LockedAbilities {
@@ -16,7 +16,7 @@ namespace LockedAbilities {
 			var config = LockedAbilitiesConfig.Instance;
 
 			if( config.Get<int>( nameof(LockedAbilitiesConfig.GrappleRequiresChainAmount) ) > 0 ) {
-				int idx = ItemFinderHelpers.FindIndexOfFirstOfItemInCollection(
+				int idx = ItemFinderLibraries.FindIndexOfFirstOfItemInCollection(
 					player.inventory,
 					new HashSet<int> { ItemID.Chain }
 				);
@@ -32,8 +32,8 @@ namespace LockedAbilities {
 
 			int grappleHarnessType = ModContent.ItemType<GrappleHarnessItem>();
 			int utilBeltType = ModContent.ItemType<UtilitarianBeltItem>();
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int lastAccSlot = PlayerItemHelpers.GetFirstVanitySlot( player );
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int lastAccSlot = PlayerItemLibraries.GetFirstVanitySlot( player );
 
 			for( int i=firstAccSlot; i<lastAccSlot; i++ ) {
 				Item item = player.armor[i];
@@ -53,7 +53,7 @@ namespace LockedAbilities {
 			int chainAmt = config.Get<int>( nameof(LockedAbilitiesConfig.GrappleRequiresChainAmount) );
 
 			if( chainAmt > 0 ) {
-				int idx = ItemFinderHelpers.FindIndexOfFirstOfItemInCollection(
+				int idx = ItemFinderLibraries.FindIndexOfFirstOfItemInCollection(
 					player.inventory,
 					new HashSet<int> { ItemID.Chain }
 				);
@@ -63,7 +63,7 @@ namespace LockedAbilities {
 					return;
 				}
 
-				PlayerItemHelpers.RemoveInventoryItemQuantity(
+				PlayerItemLibraries.RemoveInventoryItemQuantity(
 					player,
 					ItemID.Chain,
 					chainAmt

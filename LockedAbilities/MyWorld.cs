@@ -5,12 +5,12 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using Terraria.World.Generation;
-using HamstarHelpers.Classes.Errors;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.TModLoader;
+using ModLibsCore.Classes.Errors;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Libraries.TModLoader;
+using ModLibsGeneral.Libraries.World;
 using LockedAbilities.Items.Accessories;
 using LockedAbilities.Items.Consumable;
-using HamstarHelpers.Helpers.World;
 
 
 namespace LockedAbilities {
@@ -63,7 +63,7 @@ namespace LockedAbilities {
 
 		public override void Apply( GenerationProgress progress ) {
 			var config = LockedAbilitiesConfig.Instance;
-			UnifiedRandom rand = TmlHelpers.SafelyGetRand();
+			UnifiedRandom rand = TmlLibraries.SafelyGetRand();
 
 			float implantChance = config.Get<float>( nameof(config.WorldGenChestImplantChance) );
 			if( implantChance <= 0f ) {
@@ -82,7 +82,7 @@ namespace LockedAbilities {
 
 			var fillDef = new ChestFillDefinition( any, implantChance );
 
-			WorldChestHelpers.AddToWorldChests( fillDef, chestDef );
+			WorldChestLibraries.AddToWorldChests( fillDef, chestDef );
 		}
 	}
 

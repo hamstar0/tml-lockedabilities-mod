@@ -1,9 +1,9 @@
-﻿using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.TModLoader;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ModLibsCore.Libraries.TModLoader;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace LockedAbilities.Items.Consumable {
@@ -46,8 +46,8 @@ namespace LockedAbilities.Items.Consumable {
 		}
 
 		public override bool ConsumeItem( Player player ) {
-			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( player );
-			int vanillaMaxAcc = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( player );
+			var myplayer = TmlLibraries.SafelyGetModPlayer<LockedAbilitiesPlayer>( player );
+			int vanillaMaxAcc = PlayerItemLibraries.GetCurrentVanillaMaxAccessories( player );
 			bool canIncreaseAccSlots = myplayer.InternalAllowedAccessorySlots >= 0
 				&& myplayer.InternalAllowedAccessorySlots < vanillaMaxAcc;
 

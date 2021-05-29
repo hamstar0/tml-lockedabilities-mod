@@ -1,7 +1,7 @@
-﻿using HamstarHelpers.Helpers.Players;
-using System;
+﻿using System;
 using Terraria;
 using Terraria.ModLoader;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace LockedAbilities.Items.Accessories {
@@ -44,7 +44,7 @@ namespace LockedAbilities.Items.Accessories {
 				return false;
 			}
 
-			if( slot >= 0 && slot < PlayerItemHelpers.VanillaAccessorySlotFirst ) {
+			if( slot >= 0 && slot < PlayerItemLibraries.VanillaAccessorySlotFirst ) {
 				if( item.defense >= 4 ) {
 					return true;
 				}

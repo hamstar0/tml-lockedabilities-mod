@@ -1,19 +1,18 @@
 ﻿using System;
 using Terraria;
-using HamstarHelpers.Classes.Errors;
-using HamstarHelpers.Helpers.TModLoader;
-using HamstarHelpers.Services.Network.NetIO;
-using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
+using ModLibsCore.Classes.Errors;
+using ModLibsCore.Libraries.TModLoader;
+using ModLibsCore.Services.Network.SimplePacket;
 
 
 namespace LockedAbilities.Protocols {
 	[Serializable]
-	class PlayerDarkHeartsProtocol : NetIOBroadcastPayload {
+	class PlayerDarkHeartsProtocol : SimplePacketPayload {
 		public static void Broadcast( int darkHearts ) {
-			if( Main.netMode != 1 ) { throw new ModHelpersException("Not client.");  }
+			if( Main.netMode != 1 ) { throw new ModLibsException("Not client.");  }
 
-			var protocol = new PlayerDarkHeartsProtocol( Main.myPlayer, darkHearts );
-			NetIO.Broadcast( protocol );
+			var payload = new PlayerDarkHeartsProtocol( Main.myPlayer, darkHearts );
+			SimplePacket.SendToServer( payload );
 		}
 
 
@@ -37,16 +36,14 @@ namespace LockedAbilities.Protocols {
 
 		////////////////
 
-		public override bool ReceiveOnServerBeforeRebroadcast( int fromWho ) {
-			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
+		public override void ReceiveOnServer( int fromWho ) {
+			var myplayer = TmlLibraries.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
 
 			myplayer.SetAllowedAccessorySlots( this.DarkHearts );
-
-			return true;
 		}
 
-		public override void ReceiveBroadcastOnClient() {
-			var myplayer = TmlHelpers.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
+		public override void ReceiveOnClient() {
+			var myplayer = TmlLibraries.SafelyGetModPlayer<LockedAbilitiesPlayer>( Main.player[this.PlayerWho] );
 			myplayer.SetAllowedAccessorySlots( this.DarkHearts );
 		}
 	}

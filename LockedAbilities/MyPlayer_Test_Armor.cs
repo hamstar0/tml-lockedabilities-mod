@@ -1,18 +1,18 @@
-using HamstarHelpers.Helpers.Players;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.DotNET.Extensions;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Libraries.DotNET.Extensions;
+using ModLibsGeneral.Libraries.Players;
 
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
 		private void TestArmorSlots( ISet<Type> equippedAbilityEnablingItemTypes ) {
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player )
-					+ PlayerItemHelpers.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemLibraries.GetCurrentVanillaMaxAccessories( this.player )
+					+ PlayerItemLibraries.VanillaAccessorySlotFirst;
 
 			string alert;
 
@@ -25,7 +25,7 @@ namespace LockedAbilities {
 
 				if( !this.TestArmorAgainstMissingAbilities( equippedAbilityEnablingItemTypes, slot, out alert ) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemHelpers.DropEquippedArmorItem( this.player, slot, 0 );
+					PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
 					continue;
 				}
 			}
@@ -76,8 +76,8 @@ namespace LockedAbilities {
 				return;
 			}
 
-			int firstAccSlot = PlayerItemHelpers.VanillaAccessorySlotFirst;
-			int maxAccSlot = PlayerItemHelpers.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
+			int firstAccSlot = PlayerItemLibraries.VanillaAccessorySlotFirst;
+			int maxAccSlot = PlayerItemLibraries.GetCurrentVanillaMaxAccessories( this.player ) + firstAccSlot;
 
 			// Test max accessory slots
 			for( int slot = (firstAccSlot + this.TotalAllowedAccessorySlots); slot < maxAccSlot; slot++ ) {
@@ -87,7 +87,7 @@ namespace LockedAbilities {
 				}
 
 				Main.NewText( "Invalid accessory slot.", Color.Yellow );
-				PlayerItemHelpers.DropEquippedArmorItem( this.player, slot, 0 );
+				PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
 				break;
 			}
 		}
