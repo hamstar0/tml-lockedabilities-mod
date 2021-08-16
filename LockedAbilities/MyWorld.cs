@@ -8,7 +8,7 @@ using Terraria.World.Generation;
 using ModLibsCore.Classes.Errors;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Libraries.TModLoader;
-using ModLibsGeneral.Libraries.World;
+using ModLibsGeneral.Libraries.World.Chests;
 using LockedAbilities.Items.Accessories;
 using LockedAbilities.Items.Consumable;
 
@@ -75,7 +75,7 @@ namespace LockedAbilities {
 				.ToArray();
 
 			var chestDef = new ChestTypeDefinition(
-				tiles: new (int?, int?)[0],
+				anyOfTiles: new (int?, int?)[0],
 				alsoUndergroundChests: true,
 				alsoDungeonAndTempleChests: false
 			);
