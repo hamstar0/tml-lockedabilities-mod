@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using ModLibsCore.Libraries.DotNET.Extensions;
-using ModLibsGeneral.Libraries.Items;
 using ModLibsGeneral.Libraries.Players;
 
 
@@ -24,7 +24,13 @@ namespace LockedAbilities {
 
 				if( !this.TestMiscAgainstMissingAbilities( abilityItemTypes, slot, out alert) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemLibraries.DropEquippedMiscItem( this.player, slot, 0 );
+
+					if( Main.netMode != NetmodeID.Server ) {
+						PlayerItemLibraries.DropEquippedMiscItem( this.player, slot, 0 );
+					} else {
+						//this.player.armor[slot] = new Item();
+					}
+
 					continue;
 				}
 			}

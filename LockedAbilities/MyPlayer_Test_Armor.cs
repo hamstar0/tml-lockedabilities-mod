@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using ModLibsCore.Libraries.Debug;
 using ModLibsCore.Libraries.DotNET.Extensions;
 using ModLibsGeneral.Libraries.Players;
@@ -25,7 +26,13 @@ namespace LockedAbilities {
 
 				if( !this.TestArmorAgainstMissingAbilities( equippedAbilityEnablingItemTypes, slot, out alert ) ) {
 					Main.NewText( alert, Color.Yellow );
-					PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
+
+					if( Main.netMode != NetmodeID.Server ) {
+						PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
+					} else {
+						//this.player.armor[slot] = new Item();
+					}
+
 					continue;
 				}
 			}
@@ -87,7 +94,13 @@ namespace LockedAbilities {
 				}
 
 				Main.NewText( "Invalid accessory slot.", Color.Yellow );
-				PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
+
+				if( Main.netMode != NetmodeID.Server ) {
+					PlayerItemLibraries.DropEquippedArmorItem( this.player, slot, 0 );
+				} else {
+					//this.player.armor[slot] = new Item();
+				}
+
 				break;
 			}
 		}
