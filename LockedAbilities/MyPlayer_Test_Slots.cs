@@ -6,7 +6,7 @@ using ModLibsCore.Libraries.Debug;
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		private void TestMaxAllowedAccessorySlots( Item item ) {
+		private void UpdateMaxAllowedAccessorySlots( Item item ) {
 			if( this.InternalAllowedAccessorySlots == -1 ) {
 				this.TotalAllowedAccessorySlots = -1;
 				return;

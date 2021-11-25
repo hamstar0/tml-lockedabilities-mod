@@ -9,15 +9,15 @@ using ModLibsCore.Libraries.DotNET.Extensions;
 
 namespace LockedAbilities {
 	partial class LockedAbilitiesPlayer : ModPlayer {
-		private bool TestEquipItem( ISet<Type> abilityItemTypes, Item item ) {
-			if( item == null || item.IsAir ) {
+		private bool TestEquippable( ISet<Type> abilityItemTypes, Item testItem ) {
+			if( testItem == null || testItem.IsAir ) {
 				return true;
 			}
 
 			string alert;
 
 			// Test equipped item against equipped ability items
-			if( !this.TestEquipAgainstMissingAbilities(abilityItemTypes, item, out alert) ) {
+			if( !this.TestEquippable(abilityItemTypes, testItem, out alert) ) {
 				Main.NewText( alert, Color.Yellow );
 				//PlayerItemLibraries.DropInventoryItem( this.player, PlayerItemLibraries.VanillaInventorySelectedSlot );
 				//Main.mouseItem = new Item();
@@ -30,7 +30,7 @@ namespace LockedAbilities {
 
 		////
 
-		private bool TestEquipAgainstMissingAbilities(
+		private bool TestEquippable(
 					ISet<Type> equippedAbilityEnablingItemTypes,
 					Item testItem,
 					out string alert ) {
@@ -38,7 +38,7 @@ namespace LockedAbilities {
 			bool? isMissing = null;
 			var missingAbilityEnablingModItems = new List<string>();
 
-			// Test each item against missing abilities
+			// Test each item against available ability-enabling items
 			foreach( (Type abilityEnablingItemType, IAbilityAccessoryItem abilityEnablingItem) in mymod.AbilityItemSingletons ) {
 				bool isEquipped = equippedAbilityEnablingItemTypes.Contains( abilityEnablingItemType );
 

@@ -32,6 +32,8 @@ namespace LockedAbilities {
 		////////////////
 
 		public override void Load() {
+			LockedAbilitiesMod.Instance = this;
+
 			if( Main.netMode != 2 ) {   // Not server
 				this.DisabledItemTex = ModContent.GetTexture( "Terraria/MapDeath" );
 			}

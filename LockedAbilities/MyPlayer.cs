@@ -123,25 +123,32 @@ namespace LockedAbilities {
 
 		public override void PreUpdate() {
 			IList<Item> equippedAbilityItemList = this.GetEquippedAbilityItems();
+
+			this.TestMountState();
+
+			// Find equipped ability items
+			foreach( Item abilityItem in equippedAbilityItemList ) {
+				this.UpdateMaxAllowedAccessorySlots( abilityItem );
+			}
+
+			if( this.player.whoAmI == Main.myPlayer ) {
+				this.PreUpdate_Local( this.GetEquippedAbilityItems() );
+			}
+
+			if( !this.player.dead ) {
+				this.UpdateVerticalMovement( this.player.velocity.Y == 0 && !this.player.HasBuff(BuffID.Webbed) );
+			}
+		}
+
+		private void PreUpdate_Local( IList<Item> equippedAbilityItemList ) {
 			ISet<Type> equippedAbilityItemTypes = new HashSet<Type>(
 				equippedAbilityItemList
 					.Where( i => i.modItem != null )
 					.Select( i => i.modItem?.GetType() )
 			);
 
-			this.TestMountState();
-
-			// Find equipped ability items
-			foreach( Item item in equippedAbilityItemList ) {
-				this.TestMaxAllowedAccessorySlots( item );
-			}
-
 			this.TestArmorSlots( equippedAbilityItemTypes );
 			this.TestMiscSlots( equippedAbilityItemTypes );
-
-			if( !this.player.dead ) {
-				this.UpdateVerticalMovement( this.player.velocity.Y == 0 && !this.player.HasBuff(BuffID.Webbed) );
-			}
 		}
 
 
@@ -152,6 +159,14 @@ namespace LockedAbilities {
 				return base.PreItemCheck();
 			}
 
+			if( this.player.whoAmI == Main.myPlayer ) {
+				return this.PreItemCheck_Local();
+			}
+
+			return base.PreItemCheck();
+		}
+
+		private bool PreItemCheck_Local() {
 			string timerName = "LockedAbilitiesEquipCheck_" + this.player.whoAmI;
 			if( Timers.GetTimerTickDuration( timerName ) > 0 ) {
 				Timers.SetTimer( timerName, 2, false, () => false );
@@ -170,11 +185,11 @@ namespace LockedAbilities {
 				}
 
 				equippedAbilityItemTypes.Add( item.modItem.GetType() );
-			}
 
-			if( !this.TestEquipItem( equippedAbilityItemTypes, this.player.HeldItem ) ) {
-				Timers.SetTimer( timerName, 2, false, () => false );
-				return false;
+				if( !this.TestEquippable( equippedAbilityItemTypes, this.player.HeldItem ) ) {
+					Timers.SetTimer( timerName, 2, false, () => false );
+					return false;
+				}
 			}
 
 			return base.PreItemCheck();
