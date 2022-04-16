@@ -16,7 +16,7 @@ namespace LockedAbilities.Items.Consumable {
 			this.DisplayName.SetDefault( "Dark Heart Piece" );
 			this.Tooltip.SetDefault( "A fragment of a low-grade Demon Heart"
 					+ '\n' + "May be crafted into a Dark Heart"
-					+ '\n' + "Dark Hearts unlocks sealed accessory slots" );
+					+ '\n' + "Dark Hearts unlock sealed accessory slots" );
 		}
 
 		public override void SetDefaults() {
